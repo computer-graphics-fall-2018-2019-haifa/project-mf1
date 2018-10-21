@@ -1,11 +1,9 @@
 # Computer Graphics 203.3710, Winter 2018/2019
 ## Students Team data
 
-Name: 'Your real name'  
-Student Number: 'Your student number'
+Name: 'Menashe Fogel'
+Student Number: '043054675'
 
-Name: 'Your real name'  
-Student Number: 'Your student number'
 
 ### Lecturer
 *Roi Poranne*
