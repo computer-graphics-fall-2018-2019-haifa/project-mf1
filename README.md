@@ -1,7 +1,7 @@
 # Computer Graphics 203.3710, Winter 2018/2019
 ## Students Team data
 
-Name: 'Menashe Fogel' 
+Name: 'Menashe Fogel'  
 Student Number: '043054675'
 
 
