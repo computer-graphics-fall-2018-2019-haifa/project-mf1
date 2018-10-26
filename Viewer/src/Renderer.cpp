@@ -72,8 +72,70 @@ void Renderer::SetViewport(int viewportWidth, int viewportHeight, int viewportX,
 	createOpenGLBuffer();
 }
 
+
+
+bool CheckInputPoints(int p1, int q1, int p2, int q2)
+{
+	if ((p2 < p1) || (q2 < q1))
+	{
+		return false;
+	}
+	return true;
+}
+
+
+// Assumption: p2>=p1, q2>=q1
+void Renderer::DrawLineNaive(int p1, int q1, int p2, int q2)
+{
+	// Check input
+	bool is_input_ok = CheckInputPoints(p1, q1, p2, q2);
+	if (is_input_ok)
+	{
+		if (p2 == p1)
+		{
+			int x = p1;
+			for (int y = q1; y < q2; y++)
+			{
+				putPixel(x, y, glm::vec3(0, 1, 0));
+			}
+		}
+		else
+		{
+			// line is y=mx+c (m= slope, c= distance)
+			float m = float(q2 - q1) / (p2 - p1);
+			float c = float(p2 * q1 - p1 * q2) / (p2 - p1);
+
+			for (int x = p1; x < p2; x++)
+			{
+				float y = m * x + c;
+				y = int(y); // round to integet pixel
+				putPixel(x, y, glm::vec3(0, 1, 0));
+			}
+		}	
+	}
+	else
+	{
+		// TODO error handle
+	}
+
+	
+}
+
 void Renderer::Render(const Scene& scene)
 {
+	DrawLineNaive(100, 100, 200, 150);
+	DrawLineNaive(100, 100, 150, 200);
+	DrawLineNaive(100, 100, 150, 150);
+	DrawLineNaive(100, 100, 200, 100);
+	DrawLineNaive(100, 100, 100, 200);
+
+	DrawLineNaive(100, 100, 100, 100);
+	DrawLineNaive(100, 100, 50, 200);
+	DrawLineNaive(100, 100, 50, 200);
+
+
+
+	/*
 	//#############################################
 	//## You should override this implementation ##
 	//## Here you should render the scene.       ##
@@ -98,6 +160,7 @@ void Renderer::Render(const Scene& scene)
 			}
 		}
 	}
+	*/
 }
 
 //##############################

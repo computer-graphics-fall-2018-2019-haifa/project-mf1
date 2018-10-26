@@ -38,4 +38,5 @@ public:
 	void SetViewport(int viewportWidth, int viewportHeight, int viewportX = 0, int viewportY = 0);
 
 	// Add more methods/functionality as needed...
+	void DrawLineNaive(int p1, int q1, int p2, int q2);
 };
