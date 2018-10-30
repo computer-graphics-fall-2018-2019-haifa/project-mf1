@@ -74,93 +74,117 @@ void Renderer::SetViewport(int viewportWidth, int viewportHeight, int viewportX,
 
 
 
-bool CheckInputPoints(int p1, int q1, int p2, int q2)
+
+
+
+
+
+
+void Renderer::plotLineHigh(int x0, int y0, int x1, int y1)
 {
-	if ((p2 < p1) || (q2 < q1))
+	int dx = x1 - x0;
+	int dy = y1 - y0;
+	int xi = 1;
+	if (dx < 0)
 	{
-		return false;
+		xi = -1;
+		dx = -dx;
 	}
-	return true;
+	int D = 2 * dx - dy;
+	int y = y0;
+	int x = x0;
+
+	while (y <= y1)
+	{
+		putPixel(x, y, glm::vec3(0, 1, 0));
+		if (D > 0)
+		{
+			x = x + xi;
+			D = D - 2 * dy;
+		}
+		D = D + 2 * dx;
+		y++;
+	}
 }
 
 
-// Assumption: p2>=p1, q2>=q1
-void Renderer::DrawLineNaive(int p1, int q1, int p2, int q2)
+
+void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
 {
-	// Check input
-	bool is_input_ok = CheckInputPoints(p1, q1, p2, q2);
-	if (is_input_ok)
+	int dx = x1 - x0;
+	int dy = y1 - y0;
+	int yi = 1;
+	if (dy < 0)
 	{
-		if (p2 == p1)
+		yi = -1;
+		dy = -dy;
+	}
+	int D = 2 * dy - dx;
+	int y = y0;
+	int x = x0;
+
+	while (x <= x1)
+	{
+		putPixel(x, y, glm::vec3(0, 1, 0));
+		if (D > 0)
 		{
-			int x = p1;
-			for (int y = q1; y < q2; y++)
-			{
-				putPixel(x, y, glm::vec3(0, 1, 0));
-			}
+			y = y + yi;
+			D = D - 2 * dx;
+		}
+		D = D + 2 * dy;
+		x++;
+	}
+}
+
+
+
+void Renderer::DrawLineBresenhamAlgorithm(int x0, int y0, int x1, int y1)
+{
+	if (abs(y1 - y0) < abs(x1 - x0))
+	{
+		if (x0 > x1)
+		{
+			plotLineLow(x1, y1, x0, y0);
 		}
 		else
 		{
-			// line is y=mx+c (m= slope, c= distance)
-			float m = float(q2 - q1) / (p2 - p1);
-			float c = float(p2 * q1 - p1 * q2) / (p2 - p1);
-
-			for (int x = p1; x < p2; x++)
-			{
-				float y = m * x + c;
-				y = int(y); // round to integet pixel
-				putPixel(x, y, glm::vec3(0, 1, 0));
-			}
-		}	
+			plotLineLow(x0, y0, x1, y1);
+		}
 	}
 	else
 	{
-		// TODO error handle
+		if (y0 > y1)
+		{
+			plotLineHigh(x1, y1, x0, y0);
+		}
+		else
+		{
+			//plotLineHigh(x0, y0, x1, y1);
+		}
 	}
-
-	
 }
+
 
 void Renderer::Render(const Scene& scene)
 {
-	DrawLineNaive(100, 100, 200, 150);
-	DrawLineNaive(100, 100, 150, 200);
-	DrawLineNaive(100, 100, 150, 150);
-	DrawLineNaive(100, 100, 200, 100);
-	DrawLineNaive(100, 100, 100, 200);
 
-	DrawLineNaive(100, 100, 100, 100);
-	DrawLineNaive(100, 100, 50, 200);
-	DrawLineNaive(100, 100, 50, 200);
+	DrawLineBresenhamAlgorithm(150, 150, 200, 200); // OK
+	DrawLineBresenhamAlgorithm(100, 100, 200, 101); // OK
+	DrawLineBresenhamAlgorithm(100, 100, 101, 200); // OK
+	DrawLineBresenhamAlgorithm(100, 100, 100, 200); // OK
+	DrawLineBresenhamAlgorithm(100, 100, 200, 100); // OK
+
+	DrawLineBresenhamAlgorithm(400, 400, 350, 350); // OK
+	DrawLineBresenhamAlgorithm(300, 300, 250, 299); // OK
+	DrawLineBresenhamAlgorithm(300, 300, 299, 250); // OK
+	DrawLineBresenhamAlgorithm(300, 300, 300, 250); // OK
+	DrawLineBresenhamAlgorithm(300, 300, 250, 300); // OK
 
 
 
-	/*
-	//#############################################
-	//## You should override this implementation ##
-	//## Here you should render the scene.       ##
-	//#############################################
 
-	// Draw a chess board in the middle of the screen
-	for (int i = 100; i < viewportWidth - 100; i++)
-	{
-		for (int j = 100; j < viewportHeight - 100; j++)
-		{
-			int mod_i = i / 50;
-			int mod_j = j / 50;
 
-			int odd = (mod_i + mod_j) % 2;
-			if (odd)
-			{
-				putPixel(i, j, glm::vec3(0, 1, 0));
-			}
-			else
-			{
-				putPixel(i, j, glm::vec3(1, 0, 0));
-			}
-		}
-	}
-	*/
+	
 }
 
 //##############################
