@@ -138,8 +138,14 @@ void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
 
 
 
-void Renderer::DrawLineBresenhamAlgorithm(int x0, int y0, int x1, int y1)
+void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float _y1)
 {
+	int x0 = int(_x0);
+	int y0 = int(_y0);
+	int x1 = int(_x1);
+	int y1 = int(_y1);
+
+
 	if (abs(y1 - y0) < abs(x1 - x0))
 	{
 		if (x0 > x1)
@@ -159,7 +165,7 @@ void Renderer::DrawLineBresenhamAlgorithm(int x0, int y0, int x1, int y1)
 		}
 		else
 		{
-			//plotLineHigh(x0, y0, x1, y1);
+			plotLineHigh(x0, y0, x1, y1);
 		}
 	}
 }
@@ -167,18 +173,38 @@ void Renderer::DrawLineBresenhamAlgorithm(int x0, int y0, int x1, int y1)
 
 void Renderer::Render(const Scene& scene)
 {
+	int num_models = scene.GetModelCount();
+	
 
-	DrawLineBresenhamAlgorithm(150, 150, 200, 200); // OK
-	DrawLineBresenhamAlgorithm(100, 100, 200, 101); // OK
-	DrawLineBresenhamAlgorithm(100, 100, 101, 200); // OK
-	DrawLineBresenhamAlgorithm(100, 100, 100, 200); // OK
-	DrawLineBresenhamAlgorithm(100, 100, 200, 100); // OK
 
-	DrawLineBresenhamAlgorithm(400, 400, 350, 350); // OK
-	DrawLineBresenhamAlgorithm(300, 300, 250, 299); // OK
-	DrawLineBresenhamAlgorithm(300, 300, 299, 250); // OK
-	DrawLineBresenhamAlgorithm(300, 300, 300, 250); // OK
-	DrawLineBresenhamAlgorithm(300, 300, 250, 300); // OK
+	for (int x = 0; x < num_models; x++)
+	{
+		MeshModel curr_model = scene.GetModel(x);
+		int num_faces = curr_model.GetFacesCount();
+		for (int y = 0; y < num_faces; y++)
+		{
+			Face curr_face = curr_model.GetFace(y);
+			int vertex_index_0 = curr_face.GetVertexIndex(0);
+			vertex_index_0 -= 1;
+			glm::vec3 curr_vertex_0 = curr_model.GetVertex(vertex_index_0);
+
+			int vertex_index_1 = curr_face.GetVertexIndex(1);
+			vertex_index_1 -= 1;
+			glm::vec3 curr_vertex_1 = curr_model.GetVertex(vertex_index_1);
+
+			int vertex_index_2 = curr_face.GetVertexIndex(2);
+			vertex_index_2 -= 1;
+			glm::vec3 curr_vertex_2 = curr_model.GetVertex(vertex_index_2);
+
+			
+			
+			DrawLineBresenhamAlgorithm(curr_vertex_0.x * 1000, curr_vertex_0.y * 1000, curr_vertex_1.x * 1000, curr_vertex_1.y * 1000);
+			DrawLineBresenhamAlgorithm(curr_vertex_0.x * 1000, curr_vertex_0.y * 1000, curr_vertex_2.x * 1000, curr_vertex_2.y * 1000);
+			DrawLineBresenhamAlgorithm(curr_vertex_1.x * 1000, curr_vertex_1.y * 1000, curr_vertex_2.x * 1000, curr_vertex_2.y * 1000);
+		}
+	}
+	
+
 
 
 

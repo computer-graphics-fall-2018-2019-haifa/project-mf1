@@ -38,7 +38,7 @@ public:
 	void SetViewport(int viewportWidth, int viewportHeight, int viewportX = 0, int viewportY = 0);
 
 	// Add more methods/functionality as needed...
-	void DrawLineBresenhamAlgorithm(int p1, int q1, int p2, int q2);
+	void DrawLineBresenhamAlgorithm(float p1, float q1, float p2, float q2);
 	void Renderer::plotLineHigh(int x0, int y0, int x1, int y1);
 	void Renderer::plotLineLow(int x0, int y0, int x1, int y1);
 

@@ -25,6 +25,7 @@ public:
 
 	void AddModel(const std::shared_ptr<MeshModel>& model);
 	const int GetModelCount() const;
+	const MeshModel GetModel(int model_index) const;
 
 	void AddCamera(const Camera& camera);
 	const int GetCameraCount() const;

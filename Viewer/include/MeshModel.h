@@ -32,4 +32,12 @@ public:
 	const std::string& GetModelName();
 
 	// Add more methods/functionality as needed...
+	const glm::vec3& GetVertex(int index) const;
+	const int GetVerticesCount() const;
+
+	const Face GetFace(int index) const;
+	const int GetFacesCount() const;
+
+
+
 };

@@ -10,7 +10,8 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	modelName(modelName),
 	worldTransform(glm::mat4x4(1))
 {
-
+	this->vertices = vertices;
+	this->faces = faces;
 }
 
 MeshModel::~MeshModel()
@@ -38,7 +39,34 @@ const glm::vec4& MeshModel::GetColor() const
 	return color;
 }
 
+
+const glm::vec3& MeshModel::GetVertex(int index) const
+{
+	return vertices[index];
+}
+
+
+const Face MeshModel::GetFace(int index) const
+{
+	return faces[index];
+}
+
+
+const int MeshModel::GetFacesCount() const
+{
+	return (int)faces.size();
+}
+
+
+
 const std::string& MeshModel::GetModelName()
 {
 	return modelName;
+}
+
+
+
+const int MeshModel::GetVerticesCount() const
+{
+	return (int)vertices.size();
 }
