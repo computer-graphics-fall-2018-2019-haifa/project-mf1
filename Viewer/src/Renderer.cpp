@@ -171,6 +171,28 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 }
 
 
+void Renderer::DrawFace(Face curr_face, MeshModel curr_model)
+{
+	int vertex_index_0 = curr_face.GetVertexIndex(0);
+	vertex_index_0 -= 1;
+	glm::vec3 curr_vertex_0 = curr_model.GetVertex(vertex_index_0);
+
+	int vertex_index_1 = curr_face.GetVertexIndex(1);
+	vertex_index_1 -= 1;
+	glm::vec3 curr_vertex_1 = curr_model.GetVertex(vertex_index_1);
+
+	int vertex_index_2 = curr_face.GetVertexIndex(2);
+	vertex_index_2 -= 1;
+	glm::vec3 curr_vertex_2 = curr_model.GetVertex(vertex_index_2);
+
+
+
+	DrawLineBresenhamAlgorithm(curr_vertex_0.x * 5000, curr_vertex_0.y * 5000, curr_vertex_1.x * 5000, curr_vertex_1.y * 5000);
+	DrawLineBresenhamAlgorithm(curr_vertex_0.x * 5000, curr_vertex_0.y * 5000, curr_vertex_2.x * 5000, curr_vertex_2.y * 5000);
+	DrawLineBresenhamAlgorithm(curr_vertex_1.x * 5000, curr_vertex_1.y * 5000, curr_vertex_2.x * 5000, curr_vertex_2.y * 5000);
+}
+
+
 void Renderer::Render(const Scene& scene)
 {
 	int num_models = scene.GetModelCount();
@@ -184,23 +206,7 @@ void Renderer::Render(const Scene& scene)
 		for (int y = 0; y < num_faces; y++)
 		{
 			Face curr_face = curr_model.GetFace(y);
-			int vertex_index_0 = curr_face.GetVertexIndex(0);
-			vertex_index_0 -= 1;
-			glm::vec3 curr_vertex_0 = curr_model.GetVertex(vertex_index_0);
-
-			int vertex_index_1 = curr_face.GetVertexIndex(1);
-			vertex_index_1 -= 1;
-			glm::vec3 curr_vertex_1 = curr_model.GetVertex(vertex_index_1);
-
-			int vertex_index_2 = curr_face.GetVertexIndex(2);
-			vertex_index_2 -= 1;
-			glm::vec3 curr_vertex_2 = curr_model.GetVertex(vertex_index_2);
-
-			
-			
-			DrawLineBresenhamAlgorithm(curr_vertex_0.x * 1000, curr_vertex_0.y * 1000, curr_vertex_1.x * 1000, curr_vertex_1.y * 1000);
-			DrawLineBresenhamAlgorithm(curr_vertex_0.x * 1000, curr_vertex_0.y * 1000, curr_vertex_2.x * 1000, curr_vertex_2.y * 1000);
-			DrawLineBresenhamAlgorithm(curr_vertex_1.x * 1000, curr_vertex_1.y * 1000, curr_vertex_2.x * 1000, curr_vertex_2.y * 1000);
+			DrawFace(curr_face, curr_model);
 		}
 	}
 	

@@ -39,8 +39,9 @@ public:
 
 	// Add more methods/functionality as needed...
 	void DrawLineBresenhamAlgorithm(float p1, float q1, float p2, float q2);
-	void Renderer::plotLineHigh(int x0, int y0, int x1, int y1);
-	void Renderer::plotLineLow(int x0, int y0, int x1, int y1);
+	void plotLineHigh(int x0, int y0, int x1, int y1);
+	void plotLineLow(int x0, int y0, int x1, int y1);
+	void DrawFace(Face curr_face, MeshModel curr_model);
 
 
 
