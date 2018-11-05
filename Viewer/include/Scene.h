@@ -20,6 +20,13 @@ private:
 	int activeCameraIndex;
 	int activeModelIndex;
 
+
+
+	
+
+
+
+
 public:
 	Scene();
 
@@ -37,4 +44,13 @@ public:
 	const int GetActiveModelIndex() const;
 
 	// Add more methods as needed...
+
+
+
+	// TODO delete those fields
+	float debug_rotation;
+	float debug_translation;
+	float debug_scale;
+	int debug_active_axes;
+	// TODO delete those fields
 };

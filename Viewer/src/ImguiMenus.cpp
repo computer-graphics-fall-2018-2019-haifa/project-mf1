@@ -16,6 +16,7 @@
 bool showDemoWindow = false;
 bool showAnotherWindow = false;
 
+
 glm::vec4 clearColor = glm::vec4(0.8f, 0.8f, 0.8f, 1.00f);
 
 const glm::vec4& GetClearColor()
@@ -36,25 +37,67 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static float f = 0.0f;
 		static int counter = 0;
 
-		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+		ImGui::Begin("click me");                          // Create a window called "Hello, world!" and append into it.
 
-		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-		ImGui::Checkbox("Demo Window", &showDemoWindow);      // Edit bools storing our window open/close state
-		ImGui::Checkbox("Another Window", &showAnotherWindow);
+		//ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+		//ImGui::Checkbox("Demo Window", &showDemoWindow);      // Edit bools storing our window open/close state
+		//ImGui::Checkbox("Another Window", &showAnotherWindow);
 
-		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-		ImGui::ColorEdit3("clear color", (float*)&clearColor); // Edit 3 floats representing a color
+		//ImGui::ColorEdit3("clear color", (float*)&clearColor); // Edit 3 floats representing a color
 
-		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-			counter++;
-		ImGui::SameLine();
-		ImGui::Text("counter = %d", counter);
+
+
+
+		static int active_axes = 1;
+		ImGui::RadioButton("X", &active_axes, 0); ImGui::SameLine();
+		ImGui::RadioButton("Y", &active_axes, 1); ImGui::SameLine();
+		ImGui::RadioButton("Z", &active_axes, 2);
+		//printf("%d\n", item_type);
+
+		/*
+		static int active_axes = 0;
+		if (ImGui::RadioButton("X", active_axes == 0)) { mode = Mode_Copy; } ImGui::SameLine();
+		if (ImGui::RadioButton("Y", active_axes == 1)) { mode = Mode_Move; } ImGui::SameLine();
+		if (ImGui::RadioButton("Z", active_axes == 2)) { mode = Mode_Swap; }
+		*/
+
+		static float f_scale = 0.0f;
+		if (ImGui::SliderFloat("scale", &f_scale, 0.0f, 10.0f))
+		{
+			printf("%d\n", int(f_scale*1000));
+		}
+
+		static float f_translation = 0.0f;
+		if (ImGui::SliderFloat("translation", &f_translation, 0.0f, 10.0f))
+		{
+			printf("%d\n", int(f_translation * 1000));
+		}
+
+		static float f_rotaion = 0.0f;
+		if (ImGui::SliderFloat("rotaion", &f_rotaion, 0.0f, 180.0f))
+		{
+			printf("%d\n", int(f_rotaion * 1000));
+		}
+
+		
+		scene.debug_rotation = f_rotaion;
+		scene.debug_translation = f_translation;
+		scene.debug_scale = f_scale;
+		scene.debug_active_axes = active_axes;
+
+
+
+		//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+		//	counter++;
+		//ImGui::SameLine();
+		//ImGui::Text("counter = %d", counter);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
 	}
 
 	// 3. Show another simple window.
+	/*
 	if (showAnotherWindow)
 	{
 		ImGui::Begin("Another Window", &showAnotherWindow);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
@@ -65,6 +108,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		}
 		ImGui::End();
 	}
+	*/
 
 	// 4. Demonstrate creating a fullscreen menu bar and populating it.
 	{
