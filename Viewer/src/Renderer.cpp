@@ -193,12 +193,10 @@ void Renderer::DrawFace(Face curr_face, MeshModel curr_model)
 }
 
 
-void Renderer::Render(const Scene& scene)
+void Renderer::Render(const Scene& scene, ImGuiIO& io)
 {
+	// Draw all models
 	int num_models = scene.GetModelCount();
-	
-
-
 	for (int x = 0; x < num_models; x++)
 	{
 		MeshModel curr_model = scene.GetModel(x);
