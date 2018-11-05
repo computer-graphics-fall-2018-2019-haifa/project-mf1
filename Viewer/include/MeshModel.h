@@ -34,6 +34,8 @@ public:
 	// Add more methods/functionality as needed...
 	const glm::vec3& GetVertex(int index) const;
 	const int GetVerticesCount() const;
+	const std::vector<glm::vec3> GetVertices() const;
+
 
 	const Face GetFace(int index) const;
 	const int GetFacesCount() const;

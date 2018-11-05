@@ -171,19 +171,19 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 }
 
 
-void Renderer::DrawFace(Face curr_face, MeshModel curr_model)
+void Renderer::DrawFace(Face curr_face, std::vector<glm::vec3> curr_vertices)
 {
 	int vertex_index_0 = curr_face.GetVertexIndex(0);
 	vertex_index_0 -= 1;
-	glm::vec3 curr_vertex_0 = curr_model.GetVertex(vertex_index_0);
+	glm::vec3 curr_vertex_0 = curr_vertices[vertex_index_0];
 
 	int vertex_index_1 = curr_face.GetVertexIndex(1);
 	vertex_index_1 -= 1;
-	glm::vec3 curr_vertex_1 = curr_model.GetVertex(vertex_index_1);
+	glm::vec3 curr_vertex_1 = curr_vertices[vertex_index_1];
 
 	int vertex_index_2 = curr_face.GetVertexIndex(2);
 	vertex_index_2 -= 1;
-	glm::vec3 curr_vertex_2 = curr_model.GetVertex(vertex_index_2);
+	glm::vec3 curr_vertex_2 = curr_vertices[vertex_index_2];
 
 
 
@@ -195,6 +195,9 @@ void Renderer::DrawFace(Face curr_face, MeshModel curr_model)
 
 void Renderer::Render(const Scene& scene, ImGuiIO& io)
 {
+
+
+
 	// Draw all models
 	int num_models = scene.GetModelCount();
 	for (int x = 0; x < num_models; x++)
@@ -204,7 +207,11 @@ void Renderer::Render(const Scene& scene, ImGuiIO& io)
 		for (int y = 0; y < num_faces; y++)
 		{
 			Face curr_face = curr_model.GetFace(y);
-			DrawFace(curr_face, curr_model);
+
+			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
+			//trans_vertices = TransformVertecies(curr_face);
+
+			DrawFace(curr_face, curr_vetices);
 		}
 	}
 	

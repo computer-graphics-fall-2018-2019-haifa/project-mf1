@@ -46,6 +46,12 @@ const glm::vec3& MeshModel::GetVertex(int index) const
 }
 
 
+const std::vector<glm::vec3> MeshModel::GetVertices() const
+{
+	return vertices;
+}
+
+
 const Face MeshModel::GetFace(int index) const
 {
 	return faces[index];
