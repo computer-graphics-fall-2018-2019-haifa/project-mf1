@@ -193,6 +193,27 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec3> curr_vertices)
 }
 
 
+
+
+std::vector<glm::vec3> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat3 curr_tran)
+{
+	std::vector<glm::vec3> trans_vertices = curr_vertices;
+
+	for (std::vector<glm::vec3>::iterator it = trans_vertices.begin(); it != trans_vertices.end(); ++it)
+	{
+		it->z = 1;
+		glm::vec3 res = curr_tran * (*it);
+		
+		it->x = res.x;
+		it->y = res.y;
+		it->z = res.z;
+	}
+
+
+	return trans_vertices;
+}
+
+
 void Renderer::Render(const Scene& scene, ImGuiIO& io)
 {
 
@@ -209,9 +230,11 @@ void Renderer::Render(const Scene& scene, ImGuiIO& io)
 			Face curr_face = curr_model.GetFace(y);
 
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
-			//trans_vertices = TransformVertecies(curr_face);
 
-			DrawFace(curr_face, curr_vetices);
+			glm::mat3 curr_tran(1.0f);
+			std::vector<glm::vec3> trans_vertices = TransformVertecies(curr_vetices, curr_tran);
+
+			DrawFace(curr_face, trans_vertices);
 		}
 	}
 	
