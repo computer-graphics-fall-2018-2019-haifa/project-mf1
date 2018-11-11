@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
-
+#include "Utils.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
@@ -56,6 +56,15 @@ int main(int argc, char **argv)
 
 	// Register a mouse scroll-wheel callback
 	glfwSetScrollCallback(window, ScrollCallback);
+
+
+	
+	//for debug TODO delete
+	const std::string& filePath = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\pawn.obj";
+	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath)));
+	//for debug TODO delete
+
+
 
 	// This is the main game loop..
     while (!glfwWindowShouldClose(window))
