@@ -16,7 +16,14 @@ Camera::~Camera()
 
 void Camera::SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
-
+	/*
+	glm::vec4 z = normalize(eye - at);
+	glm::vec4 x = normalize(cross(up, n));
+	glm::vec4 y = normalize(cross(n, u));
+	glm::vec4 t = vec4(0.0, 0.0, 0.0, 1.0);
+	glm::mat4 c = mat4(u, v, n, t);
+	return c * Translate(-eye);
+	*/
 }
 
 void Camera::SetOrthographicProjection(
