@@ -232,6 +232,10 @@ void Renderer::Render(const Scene& scene, ImGuiIO& io)
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 
 			glm::mat3 curr_tran(1.0f);
+
+
+
+
 			curr_tran[0].y = scene.debug_translation;
 			std::vector<glm::vec3> trans_vertices = TransformVertecies(curr_vetices, curr_tran);
 
