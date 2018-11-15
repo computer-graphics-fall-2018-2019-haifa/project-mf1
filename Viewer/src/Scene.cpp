@@ -120,11 +120,12 @@ void Scene::SetRotationMatX(float angle)
 	float sin_angle = sin(angle);
 	float cos_angle = cos(angle);
 
+	/*
 	RotationMatX[1][1] = cos_angle;
 	RotationMatX[1][2] = -sin_angle;
 	RotationMatX[2][1] = sin_angle;
 	RotationMatX[2][2] = cos_angle;
-
+	*/
 	return;
 }
 const glm::mat4x4 Scene::GetRotationMatX()

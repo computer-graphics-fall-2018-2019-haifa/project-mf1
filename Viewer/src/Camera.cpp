@@ -9,7 +9,7 @@ Camera::Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up) :
 {
 	SetCameraLookAt(eye, at, up);
 
-	SetOrthographicProjection(200,200,10,10);
+	SetOrthographicProjection((-500.0),500.0, (-500.0),500.0,1.0,200.0);
 }
 
 Camera::~Camera()
@@ -47,17 +47,23 @@ void Camera::SetCameraLookAt(const glm::vec3& from, const glm::vec3& to, const g
 }
 
 void Camera::SetOrthographicProjection(
-	const float height,
-	const float width,
+	const float left,
+	const float right,
+	const float bottom,
+	const float top,
 	const float near,
-	const float far)
+	const float far
+	)
 {
 	glm::mat4x4 orthographicMat(glm::mat4(1.0));
 
-	orthographicMat[0][0] = 1.0 / width;
-	orthographicMat[1][1] = 1.0 / height;
-	orthographicMat[2][2] = -(2.0 / (far - near));
-	orthographicMat[2][3] = -((far + near) / (far - near));
+	orthographicMat[0][0] = 2.0 / (right - left);
+	orthographicMat[1][1] = 2.0 / (top-bottom);
+	orthographicMat[2][2] = 2.0 / (near - far);
+
+	orthographicMat[0][3] = -1*((right + left) / (right - left));
+	orthographicMat[1][3] = -1 * ((top + bottom) / (top - bottom));
+	orthographicMat[2][3] = -1 * ((far + near) / (far - near));
 
 	projectionTransformation = orthographicMat;
 

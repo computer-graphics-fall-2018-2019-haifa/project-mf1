@@ -25,10 +25,13 @@ public:
 	void SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
 
 	void SetOrthographicProjection(
-		const float height,
-		const float aspectRatio,
+		const float left,
+		const float right,
+		const float bottom,
+		const float top,
 		const float near,
-		const float far);
+		const float far
+	);
 
 	void SetPerspectiveProjection(
 		const float fovy,
