@@ -187,9 +187,9 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec3> curr_vertices)
 
 
 
-	DrawLineBresenhamAlgorithm(curr_vertex_0.x * 5000, curr_vertex_0.y * 5000, curr_vertex_1.x * 5000, curr_vertex_1.y * 5000);
-	DrawLineBresenhamAlgorithm(curr_vertex_0.x * 5000, curr_vertex_0.y * 5000, curr_vertex_2.x * 5000, curr_vertex_2.y * 5000);
-	DrawLineBresenhamAlgorithm(curr_vertex_1.x * 5000, curr_vertex_1.y * 5000, curr_vertex_2.x * 5000, curr_vertex_2.y * 5000);
+	DrawLineBresenhamAlgorithm(curr_vertex_0.x, curr_vertex_0.y, curr_vertex_1.x, curr_vertex_1.y);
+	DrawLineBresenhamAlgorithm(curr_vertex_0.x, curr_vertex_0.y, curr_vertex_2.x, curr_vertex_2.y);
+	DrawLineBresenhamAlgorithm(curr_vertex_1.x, curr_vertex_1.y, curr_vertex_2.x, curr_vertex_2.y);
 }
 
 
