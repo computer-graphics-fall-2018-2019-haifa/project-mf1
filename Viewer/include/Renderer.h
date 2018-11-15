@@ -32,7 +32,7 @@ public:
 	Renderer(int viewportWidth, int viewportHeight, int viewportX = 0, int viewportY = 0);
 	~Renderer();
 
-	void Render(const Scene& scene, ImGuiIO& io);
+	void Render(Scene& scene, ImGuiIO& io);
 	void SwapBuffers();
 	void ClearColorBuffer(const glm::vec3& color);
 	void SetViewport(int viewportWidth, int viewportHeight, int viewportX = 0, int viewportY = 0);
@@ -42,6 +42,8 @@ public:
 	void plotLineHigh(int x0, int y0, int x1, int y1);
 	void plotLineLow(int x0, int y0, int x1, int y1);
 	void DrawFace(Face curr_face,  std::vector<glm::vec3> curr_vertices);
-	std::vector<glm::vec3> TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat3 curr_tran);
+	std::vector<glm::vec3> TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran);
+	glm::mat4x4 getMatFromGui(Scene& scene);
+
 
 };

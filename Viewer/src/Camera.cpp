@@ -46,10 +46,16 @@ void Camera::SetCameraLookAt(const glm::vec3& from, const glm::vec3& to, const g
 
 void Camera::SetOrthographicProjection(
 	const float height,
-	const float aspectRatio,
+	const float width,
 	const float near,
 	const float far)
 {
+	glm::mat4x4 orthographicMat(glm::mat4(1.0));
+
+	orthographicMat[0][0] = 1.0 / width;
+	orthographicMat[1][1] = 1.0 / height;
+	orthographicMat[2][2] = -(2.0 / (far - near));
+	orthographicMat[2][3] = -((far + near) / (far - near));
 
 }
 

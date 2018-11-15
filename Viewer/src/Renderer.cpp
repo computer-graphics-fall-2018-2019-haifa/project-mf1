@@ -195,14 +195,20 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec3> curr_vertices)
 
 
 
-std::vector<glm::vec3> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat3 curr_tran)
+std::vector<glm::vec3> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran)
 {
 	std::vector<glm::vec3> trans_vertices = curr_vertices;
 
 	for (std::vector<glm::vec3>::iterator it = trans_vertices.begin(); it != trans_vertices.end(); ++it)
 	{
-		it->z = 1;
-		glm::vec3 res = curr_tran * (*it);
+		glm::vec4 tmp;
+		tmp[0] = it->x;
+		tmp[1] = it->y;
+		tmp[2] = it->z;
+
+
+		
+		glm::vec3 res = curr_tran * tmp;
 		
 		it->x = res.x;
 		it->y = res.y;
@@ -214,7 +220,22 @@ std::vector<glm::vec3> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 }
 
 
-void Renderer::Render(const Scene& scene, ImGuiIO& io)
+glm::mat4x4 Renderer::getMatFromGui(Scene& scene)
+{
+	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
+	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
+
+	glm::mat4x4 trans_mat = scene.GetTranslationMat();
+	glm::mat4x4 scale_mat = scene.GetScaleMat();
+
+
+	glm::mat4x4 res_mat = trans_mat * scale_mat;
+
+	return res_mat;
+}
+
+
+void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
 
 
@@ -231,15 +252,12 @@ void Renderer::Render(const Scene& scene, ImGuiIO& io)
 
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 
-			glm::mat3 curr_tran(1.0f);
+			glm::mat4x4 curr_tran = getMatFromGui(scene);
 
 
+			std::vector<glm::vec3> transed_vertices = TransformVertecies(curr_vetices, curr_tran);
 
-
-			curr_tran[0].y = scene.debug_translation;
-			std::vector<glm::vec3> trans_vertices = TransformVertecies(curr_vetices, curr_tran);
-
-			DrawFace(curr_face, trans_vertices);
+			DrawFace(curr_face, transed_vertices);
 		}
 	}
 	

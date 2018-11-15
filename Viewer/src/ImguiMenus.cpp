@@ -61,29 +61,35 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		if (ImGui::RadioButton("Z", active_axes == 2)) { mode = Mode_Swap; }
 		*/
 
-		static float f_scale = 0.0f;
-		if (ImGui::SliderFloat("scale", &f_scale, 0.0f, 10.0f))
-		{
-			printf("%d\n", int(f_scale*1000));
-		}
+		static float f_scale_x = 0.0f;
+		ImGui::SliderFloat("scaleX", &f_scale_x, 0.0f, 10.0f);
+		static float f_scale_y = 0.0f;
+		ImGui::SliderFloat("scaleY", &f_scale_y, 0.0f, 10.0f);
+		static float f_scale_z = 0.0f;
+		ImGui::SliderFloat("scaleZ", &f_scale_z, 0.0f, 10.0f);
 
-		static float f_translation = 0.0f;
-		if (ImGui::SliderFloat("translation", &f_translation, 0.0f, 10.0f))
-		{
-			printf("%d\n", int(f_translation * 1000));
-		}
 
-		static float f_rotaion = 0.0f;
-		if (ImGui::SliderFloat("rotaion", &f_rotaion, 0.0f, 180.0f))
-		{
-			printf("%d\n", int(f_rotaion * 1000));
-		}
+		static float f_trans_x = 0.0f;
+		ImGui::SliderFloat("transX", &f_trans_x, 0.0f, 10.0f);
+		static float f_trans_y = 0.0f;
+		ImGui::SliderFloat("transY", &f_trans_y, 0.0f, 10.0f);
+		static float f_trans_z = 0.0f;
+		ImGui::SliderFloat("transZ", &f_trans_z, 0.0f, 10.0f);
 
-		
-		scene.debug_rotation = f_rotaion;
-		scene.debug_translation = f_translation;
-		scene.debug_scale = f_scale;
-		scene.debug_active_axes = active_axes;
+		static float f_rotation = 0.0f;
+		ImGui::SliderFloat("rotation", &f_rotation, 0.0f, 10.0f);
+
+		scene.scaleX = f_scale_x;
+		scene.scaleY = f_scale_y;
+		scene.scaleZ = f_scale_z;
+
+		scene.translationX = f_trans_x;
+		scene.translationY = f_trans_y;
+		scene.translationZ = f_trans_z;
+
+		scene.rotationAngle = f_rotation;
+
+
 
 
 

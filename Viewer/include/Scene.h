@@ -68,9 +68,14 @@ public:
 
 
 	// TODO delete those fields
-	float debug_rotation;
-	float debug_translation;
-	float debug_scale;
-	int debug_active_axes;
+	float scaleX;
+	float scaleY;
+	float scaleZ;
+
+	float translationX;
+	float translationY;
+	float translationZ;
+
+	float rotationAngle;
 	// TODO delete those fields
 };
