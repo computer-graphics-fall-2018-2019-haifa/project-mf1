@@ -252,12 +252,21 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 
+
+
 			glm::mat4x4 curr_tran = getMatFromGui(scene);
-
-
 			std::vector<glm::vec3> transed_vertices = TransformVertecies(curr_vetices, curr_tran);
 
-			DrawFace(curr_face, transed_vertices);
+
+			glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			std::vector<glm::vec3> transed_vertices_camera = TransformVertecies(transed_vertices, viewCamera);
+
+
+			glm::mat4x4 projection = scene.GetActiveCameraProjection();
+			std::vector<glm::vec3> transed_vertices_projection = TransformVertecies(transed_vertices, projection);
+
+
+			DrawFace(curr_face, transed_vertices_projection);
 		}
 	}
 	

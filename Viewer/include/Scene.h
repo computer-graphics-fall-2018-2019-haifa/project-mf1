@@ -65,6 +65,10 @@ public:
 	const glm::mat4x4 GetRotationMatZ();
 
 
+	glm::mat4x4 GetActiveCamera();
+	glm::mat4x4 GetActiveCameraProjection();
+
+
 
 
 	// TODO delete those fields

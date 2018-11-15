@@ -8,6 +8,8 @@ Camera::Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up) :
 	zoom(1.0)
 {
 	SetCameraLookAt(eye, at, up);
+
+	SetOrthographicProjection(200,200,10,10);
 }
 
 Camera::~Camera()
@@ -57,7 +59,12 @@ void Camera::SetOrthographicProjection(
 	orthographicMat[2][2] = -(2.0 / (far - near));
 	orthographicMat[2][3] = -((far + near) / (far - near));
 
+	projectionTransformation = orthographicMat;
+
 }
+
+
+
 
 void Camera::SetPerspectiveProjection(
 	const float fovy,
@@ -71,4 +78,18 @@ void Camera::SetPerspectiveProjection(
 void Camera::SetZoom(const float zoom)
 {
 
+}
+
+
+
+glm::mat4x4 Camera::GetViewTransformation()
+{
+	return viewTransformation;
+}
+
+
+
+glm::mat4x4 Camera::GetOrthographicMat()
+{
+	return projectionTransformation;
 }

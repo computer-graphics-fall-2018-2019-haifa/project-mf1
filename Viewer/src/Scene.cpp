@@ -73,7 +73,17 @@ const int Scene::GetActiveModelIndex() const
 	return activeModelIndex;
 }
 
+glm::mat4x4 Scene::GetActiveCamera()
+{
+	return cameras[activeCameraIndex].GetViewTransformation();
+}
 
+
+
+glm::mat4x4 Scene::GetActiveCameraProjection()
+{
+	return cameras[activeCameraIndex].GetOrthographicMat();
+}
 
 
 
