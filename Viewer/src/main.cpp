@@ -65,6 +65,13 @@ int main(int argc, char **argv)
 	//for debug TODO delete
 
 
+	// add camera of inital setup
+	const glm::vec3 eye(0.0,0.0,0.0);
+	const glm::vec3 at(0.0,0.0,1.0);
+	const glm::vec3 up(0.0,1.0,0.0);
+	Camera init_camera(eye, at, up);
+	scene.AddCamera(init_camera);
+
 
 	// This is the main game loop..
     while (!glfwWindowShouldClose(window))
