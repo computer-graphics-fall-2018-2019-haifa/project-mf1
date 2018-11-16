@@ -171,52 +171,47 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 }
 
 
-void Renderer::DrawFace(Face curr_face, std::vector<glm::vec3> curr_vertices)
+void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 {
 	int vertex_index_0 = curr_face.GetVertexIndex(0);
 	vertex_index_0 -= 1;
-	glm::vec3 curr_vertex_0 = curr_vertices[vertex_index_0];
+	glm::vec4 curr_vertex_0 = curr_vertices[vertex_index_0];
 
 	int vertex_index_1 = curr_face.GetVertexIndex(1);
 	vertex_index_1 -= 1;
-	glm::vec3 curr_vertex_1 = curr_vertices[vertex_index_1];
+	glm::vec4 curr_vertex_1 = curr_vertices[vertex_index_1];
 
 	int vertex_index_2 = curr_face.GetVertexIndex(2);
 	vertex_index_2 -= 1;
-	glm::vec3 curr_vertex_2 = curr_vertices[vertex_index_2];
+	glm::vec4 curr_vertex_2 = curr_vertices[vertex_index_2];
 
 
 
-	DrawLineBresenhamAlgorithm(curr_vertex_0.x, curr_vertex_0.y, curr_vertex_1.x, curr_vertex_1.y);
-	DrawLineBresenhamAlgorithm(curr_vertex_0.x, curr_vertex_0.y, curr_vertex_2.x, curr_vertex_2.y);
-	DrawLineBresenhamAlgorithm(curr_vertex_1.x, curr_vertex_1.y, curr_vertex_2.x, curr_vertex_2.y);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0], curr_vertex_0[1], curr_vertex_1[0], curr_vertex_1[1]);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0], curr_vertex_0[1], curr_vertex_2[0], curr_vertex_2[1]);
+	DrawLineBresenhamAlgorithm(curr_vertex_1[0], curr_vertex_1[1], curr_vertex_2[0], curr_vertex_2[1]);
 }
 
 
 
 
-std::vector<glm::vec3> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran)
+std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran)
 {
-	std::vector<glm::vec3> trans_vertices = curr_vertices;
+	std::vector<glm::vec4> transed_vetricies;
 
-	for (std::vector<glm::vec3>::iterator it = trans_vertices.begin(); it != trans_vertices.end(); ++it)
+	for (std::vector<glm::vec3>::iterator it = curr_vertices.begin(); it != curr_vertices.end(); ++it)
 	{
-		glm::vec4 tmp;
+		glm::vec4 tmp(1.0);
 		tmp[0] = it->x;
 		tmp[1] = it->y;
 		tmp[2] = it->z;
 
-
-		
-		glm::vec3 res = curr_tran * tmp;
-		
-		it->x = res.x;
-		it->y = res.y;
-		it->z = res.z;
+		glm::vec4 res_vertex = curr_tran * tmp;
+		transed_vetricies.push_back(res_vertex);
 	}
 
 
-	return trans_vertices;
+	return transed_vetricies;
 }
 
 
@@ -255,18 +250,19 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 
 			glm::mat4x4 curr_tran = getMatFromGui(scene);
-			std::vector<glm::vec3> transed_vertices = TransformVertecies(curr_vetices, curr_tran);
-
-
-			glm::mat4x4 viewCamera = scene.GetActiveCamera();
-			std::vector<glm::vec3> transed_vertices_camera = TransformVertecies(transed_vertices, viewCamera);
-
-
+			glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCamera());
 			glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			std::vector<glm::vec3> transed_vertices_projection = TransformVertecies(transed_vertices, projection);
+
+			glm::mat4x4 tarns_mat = curr_tran * viewCamera*projection;
 
 
-			DrawFace(curr_face, transed_vertices_projection);
+			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
+
+
+			
+
+
+			DrawFace(curr_face, transed_vertices);
 		}
 	}
 	
