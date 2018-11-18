@@ -96,7 +96,7 @@ void Renderer::plotLineHigh(int x0, int y0, int x1, int y1)
 
 	while (y <= y1)
 	{
-		putPixel(x, y, glm::vec3(0, 1, 0));
+		putPixel(x, y, glm::vec3(0, 0, 0));
 		if (D > 0)
 		{
 			x = x + xi;
@@ -125,7 +125,7 @@ void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
 
 	while (x <= x1)
 	{
-		putPixel(x, y, glm::vec3(0, 1, 0));
+		putPixel(x, y, glm::vec3(0, 0, 0));
 		if (D > 0)
 		{
 			y = y + yi;
