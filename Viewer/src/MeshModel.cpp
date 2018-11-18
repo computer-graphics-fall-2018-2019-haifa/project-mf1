@@ -129,7 +129,7 @@ void MeshModel::SetRotationMatX(float angle)
 
 
 	RotationMatX[1][1] = cos_angle;
-	RotationMatX[1][2] = (-1.0)*sin_angle;
+	RotationMatX[1][2] = (-1.0f)*sin_angle;
 	RotationMatX[2][1] = sin_angle;
 	RotationMatX[2][2] = cos_angle;
 
@@ -145,9 +145,9 @@ void MeshModel::SetRotationMatY(float angle)
 	float sin_angle = float(sin(angle* M_PI / 180.0));
 	float cos_angle = float(cos(angle* M_PI / 180.0));
 
-	RotationMatY[1][1] = cos_angle;
-	RotationMatY[1][2] = (-1.0)*sin_angle;
-	RotationMatY[2][1] = sin_angle;
+	RotationMatY[0][0] = cos_angle;
+	RotationMatY[0][2] = sin_angle;
+	RotationMatY[2][0] = (-1.0f)*sin_angle;
 	RotationMatY[2][2] = cos_angle;
 
 
@@ -163,10 +163,10 @@ void MeshModel::SetRotationMatZ(float angle)
 	float cos_angle = float(cos(angle * M_PI / 180.0));
 
 
-	RotationMatZ[1][1] = cos_angle;
-	RotationMatZ[1][2] = (-1.0)*sin_angle;
-	RotationMatZ[2][1] = sin_angle;
-	RotationMatZ[2][2] = cos_angle;
+	RotationMatZ[0][1] = cos_angle;
+	RotationMatZ[0][2] = (-1.0)*sin_angle;
+	RotationMatZ[1][1] = sin_angle;
+	RotationMatZ[1][2] = cos_angle;
 
 
 	return;
