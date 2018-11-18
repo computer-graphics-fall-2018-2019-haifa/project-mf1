@@ -57,11 +57,11 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
 
 		static float f_trans_x = 0.0f;
-		ImGui::SliderFloat("transX", &f_trans_x, -500.0f, 500.0f);
+		ImGui::SliderFloat("transX", &f_trans_x, -1000.0f, 1000.0f);
 		static float f_trans_y = 0.0f;
-		ImGui::SliderFloat("transY", &f_trans_y, -500.0f, 500.0f);
+		ImGui::SliderFloat("transY", &f_trans_y, -1000.0f, 1000.0f);
 		static float f_trans_z = 0.0f;
-		ImGui::SliderFloat("transZ", &f_trans_z, -500.0f, 500.0f);
+		ImGui::SliderFloat("transZ", &f_trans_z, -1000.0f,1000.0f);
 
 		static float f_rotation_x = 0.0f;
 		ImGui::SliderFloat("rotation x", &f_rotation_x, -360.0f,360.0f);

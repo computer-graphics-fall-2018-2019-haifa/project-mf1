@@ -173,13 +173,6 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 
 void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bool is_2d_debug)
 {
-	float mul_factor = 1.0f;
-	if (is_2d_debug)
-	{
-		mul_factor = 10000.0f;
-	}
-
-
 	int vertex_index_0 = curr_face.GetVertexIndex(0);
 	vertex_index_0 -= 1;
 	glm::vec4 curr_vertex_0 = curr_vertices[vertex_index_0];
@@ -193,9 +186,9 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bo
 	glm::vec4 curr_vertex_2 = curr_vertices[vertex_index_2];
 
 	// The relevant data is vertex.x and vertex.y
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * mul_factor, curr_vertex_0[1] * mul_factor, curr_vertex_1[0] * mul_factor, curr_vertex_1[1] * mul_factor);
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * mul_factor, curr_vertex_0[1] * mul_factor, curr_vertex_2[0] * mul_factor, curr_vertex_2[1] * mul_factor);
-	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * mul_factor, curr_vertex_1[1] * mul_factor, curr_vertex_2[0] * mul_factor, curr_vertex_2[1] * mul_factor);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight);
+	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight);
 }
 
 
