@@ -287,7 +287,7 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		int num_faces = curr_model.GetFacesCount();
 		for (int y = 0; y < num_faces; y++)
 		{
-			// Handle Trans mat of world
+			// Handle world Trans mat 
 			SetScenceTransMat(scene);
 			glm::mat4x4 curr_tran = getScenceTransMat(scene);
 			//glm::mat4x4 curr_tran(1.0f);
