@@ -36,10 +36,7 @@ public:
 
 	void SetActiveModelIndex(int index);
 	const int GetActiveModelIndex() const;
-
-	// Add more methods as needed...
-
-	
+	std::string GetActiveModelName();
 
 
 	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);

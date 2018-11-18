@@ -72,6 +72,13 @@ const int Scene::GetActiveModelIndex() const
 	return activeModelIndex;
 }
 
+
+std::string Scene::GetActiveModelName()
+{
+	MeshModel tmp = *models[activeModelIndex];
+	return tmp.GetModelName();
+}
+
 void Scene::SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
 	cameras[activeCameraIndex].SetCameraLookAt(eye,at,up);

@@ -39,10 +39,14 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 		ImGui::Begin("click me");                          // Create a window called "Hello, world!" and append into it.
 
-		
+
+		std::string modelName = scene.GetActiveModelName();
+		ImGui::Text("Model name:"); ImGui::SameLine();
+		ImGui::Text(const_cast<char*>(modelName.c_str()));
 		
 		
 		// Model sliders: scale, translate, rotate
+		ImGui::Text("");
 		ImGui::Text("Model");
 
 		static float f_scale_x = 1.0f;
@@ -81,6 +85,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 		// Camera sliders: perspective/ orthographic, eye, at, up
+		ImGui::Text("");
 		ImGui::Text("Camera");
 
 		static int active_axes = 1;
