@@ -187,9 +187,9 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 
 
 
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0], curr_vertex_0[1], curr_vertex_1[0], curr_vertex_1[1]);
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0], curr_vertex_0[1], curr_vertex_2[0], curr_vertex_2[1]);
-	DrawLineBresenhamAlgorithm(curr_vertex_1[0], curr_vertex_1[1], curr_vertex_2[0], curr_vertex_2[1]);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
+	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
 }
 
 
@@ -229,12 +229,15 @@ glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
 	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
 	glm::mat4x4 scale_mat = scene.GetScaleMat();
-	glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
-	glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
-	glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
+	//glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
+	//glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
+	//glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
+	glm::mat4x4 rot_mat_x(1.0f);
+	glm::mat4x4 rot_mat_y(1.0f);
+	glm::mat4x4 rot_mat_z(1.0f);
 
 
-	glm::mat4x4 res_mat = trans_mat * scale_mat * rot_mat_x * rot_mat_y * rot_mat_z;
+	glm::mat4x4 res_mat = trans_mat  * rot_mat_x * rot_mat_y * rot_mat_z* scale_mat;
 
 	return res_mat;
 }
@@ -287,17 +290,18 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			// Handle Trans mat of world
 			SetScenceTransMat(scene);
 			glm::mat4x4 curr_tran = getScenceTransMat(scene);
-
+			//glm::mat4x4 curr_tran(1.0f);
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			//glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			glm::mat4x4 viewCamera(1.0f);
 
 
 			// Handle projection
 			SetCameraProjection(scene);
-			glm::mat4x4 projection = scene.GetActiveCameraProjection();
-
+			//glm::mat4x4 projection = scene.GetActiveCameraProjection();
+			glm::mat4x4 projection(1.0f);
 
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;

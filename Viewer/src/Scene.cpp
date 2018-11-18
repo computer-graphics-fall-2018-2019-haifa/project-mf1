@@ -114,9 +114,15 @@ glm::mat4x4 Scene::GetActiveCameraProjection()
 
 void Scene::SetTranslationMat(float x, float y, float z)
 {
-	translationMat[0][3] = x;
-	translationMat[1][3] = y;
-	translationMat[2][3] = z;
+	glm::mat4x4 _translationMat(1.0f);
+
+	_translationMat[0][3] = x;
+	_translationMat[1][3] = y;
+	_translationMat[2][3] = z;
+
+	translationMat = glm::transpose(_translationMat);
+
+
 	return;
 }
 
@@ -142,8 +148,8 @@ const glm::mat4x4 Scene::GetScaleMat() const
 
 void Scene::SetRotationMatX(float angle)
 {
-	float sin_angle = float(sin(angle)* M_PI / 180.0);
-	float cos_angle = float(cos(angle)* M_PI / 180.0);
+	float sin_angle = float(sin(angle)* M_PI / 180.0f);
+	float cos_angle = float(cos(angle)* M_PI / 180.0f);
 
 	
 	RotationMatX[1][1] = cos_angle;
