@@ -55,15 +55,10 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		*/
 		//printf("%d\n", item_type);
 
-		/*
-		static int active_axes = 0;
-		if (ImGui::RadioButton("X", active_axes == 0)) { mode = Mode_Copy; } ImGui::SameLine();
-		if (ImGui::RadioButton("Y", active_axes == 1)) { mode = Mode_Move; } ImGui::SameLine();
-		if (ImGui::RadioButton("Z", active_axes == 2)) { mode = Mode_Swap; }
-		*/
+		
+		
 
 		ImGui::Text("Model");
-
 
 		static float f_scale_x = 1.0f;
 		ImGui::SliderFloat("scaleX", &f_scale_x, 0.1f, 100.0f);
@@ -71,7 +66,6 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::SliderFloat("scaleY", &f_scale_y, 0.1f, 100.0f);
 		static float f_scale_z = 1.0f;
 		ImGui::SliderFloat("scaleZ", &f_scale_z, 0.1f, 100.0f);
-
 
 		static float f_trans_x = 0.0f;
 		ImGui::SliderFloat("transX", &f_trans_x, -500.0f, 500.0f);
@@ -99,7 +93,16 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		scene.rotationAngle_y = f_rotation_z;
 		scene.rotationAngle_z = f_rotation_z;
 
+
+
+
 		ImGui::Text("Camera");
+
+		static int active_axes = 0;
+		if (ImGui::RadioButton("Perspective", &active_axes,0)) { scene.is_orth = false; } ImGui::SameLine();
+		if (ImGui::RadioButton("Orthographic", &active_axes ,1)) { scene.is_orth = true; }
+		
+
 
 		static float f_eye_x = 0.0f;
 		ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);

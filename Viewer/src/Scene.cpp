@@ -14,6 +14,8 @@ Scene::Scene() :
 	RotationMatY = glm::mat4(1.0);
 	RotationMatZ = glm::mat4(1.0);
 
+	is_orth = true;
+
 }
 
 void Scene::AddModel(const std::shared_ptr<MeshModel>& model)

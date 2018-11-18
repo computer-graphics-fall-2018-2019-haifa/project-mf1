@@ -102,6 +102,8 @@ public:
 	float cam_up_y;
 	float cam_up_z;
 
+	bool is_orth;
+
 
 
 
