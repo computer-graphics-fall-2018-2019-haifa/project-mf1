@@ -15,7 +15,7 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	this->vertices = vertices;
 	this->faces = faces;
 
-
+	// Init identity matricies
 	translationMat = glm::mat4(1.0);
 	scaleMat = glm::mat4(1.0);
 	RotationMatX = glm::mat4(1.0);
@@ -25,17 +25,6 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 
 MeshModel::~MeshModel()
 {
-
-}
-
-void MeshModel::SetWorldTransformation(const glm::mat4x4& worldTransform)
-{
-	this->worldTransform = worldTransform;
-}
-
-const glm::mat4x4& MeshModel::GetWorldTransformation() const
-{
-	return worldTransform;
 }
 
 void MeshModel::SetColor(const glm::vec4& color)
@@ -98,7 +87,6 @@ void MeshModel::SetTranslationMat(float x, float y, float z)
 
 	translationMat = glm::transpose(_translationMat);
 
-
 	return;
 }
 
@@ -126,7 +114,6 @@ void MeshModel::SetRotationMatX(float angle)
 {
 	float sin_angle = float(sin(angle* M_PI / 180.0f));
 	float cos_angle = float(cos(angle* M_PI / 180.0f));
-
 
 	RotationMatX[1][1] = cos_angle;
 	RotationMatX[1][2] = (-1.0f)*sin_angle;
@@ -162,9 +149,8 @@ void MeshModel::SetRotationMatZ(float angle)
 	float sin_angle = float(sin(angle * M_PI / 180.0));
 	float cos_angle = float(cos(angle * M_PI / 180.0));
 
-
 	RotationMatZ[0][1] = cos_angle;
-	RotationMatZ[0][2] = (-1.0)*sin_angle;
+	RotationMatZ[0][2] = (-1.0f)*sin_angle;
 	RotationMatZ[1][1] = sin_angle;
 	RotationMatZ[1][2] = cos_angle;
 

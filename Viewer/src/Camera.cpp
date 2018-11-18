@@ -8,7 +8,6 @@ Camera::Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up) :
 	zoom(1.0)
 {
 	SetCameraLookAt(eye, at, up);
-
 	SetOrthographicProjection((-500.0),500.0, (-500.0),500.0,1.0,200.0);
 }
 
@@ -21,6 +20,7 @@ Camera::~Camera()
 void Camera::SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
 	/*
+	// Classroom:
 	glm::vec4 z = glm::normalize(eye - at);
 	glm::vec4 x = glm::normalize(glm::cross(up, n));
 	glm::vec4 y = glm::normalize(glm::cross(n, u));
@@ -61,13 +61,13 @@ void Camera::SetOrthographicProjection(
 {
 	glm::mat4x4 orthographicMat(glm::mat4(1.0));
 
-	orthographicMat[0][0] = 2.0 / (right - left);
-	orthographicMat[1][1] = 2.0 / (top-bottom);
-	orthographicMat[2][2] = 2.0 / (near - far);
+	orthographicMat[0][0] = 2.0f / (right - left);
+	orthographicMat[1][1] = 2.0f / (top-bottom);
+	orthographicMat[2][2] = 2.0f / (near - far);
 
-	orthographicMat[0][3] = -1*((right + left) / (right - left));
-	orthographicMat[1][3] = -1 * ((top + bottom) / (top - bottom));
-	orthographicMat[2][3] = -1 * ((far + near) / (far - near));
+	orthographicMat[0][3] = (-1.0f) * ((right + left) / (right - left));
+	orthographicMat[1][3] = (-1.0f) * ((top + bottom) / (top - bottom));
+	orthographicMat[2][3] = (-1.0f) * ((far + near) / (far - near));
 
 	// Update projection
 	projectionTransformation = orthographicMat;

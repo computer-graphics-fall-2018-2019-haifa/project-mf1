@@ -59,10 +59,10 @@ int main(int argc, char **argv)
 
 
 	
-	//for debug TODO delete
+	//for debug add model pawn TODO delete
 	const std::string& filePath = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\pawn.obj";
 	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath)));
-	//for debug TODO delete
+	//for debug add model pawn TODO delete
 
 
 	// add camera of inital setup

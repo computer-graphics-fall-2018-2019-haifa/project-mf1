@@ -39,25 +39,10 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 		ImGui::Begin("click me");                          // Create a window called "Hello, world!" and append into it.
 
-		//ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-		//ImGui::Checkbox("Demo Window", &showDemoWindow);      // Edit bools storing our window open/close state
-		//ImGui::Checkbox("Another Window", &showAnotherWindow);
-
-		//ImGui::ColorEdit3("clear color", (float*)&clearColor); // Edit 3 floats representing a color
-
-
-
-		/*
-		static int active_axes = 1;
-		ImGui::RadioButton("X", &active_axes, 0); ImGui::SameLine();
-		ImGui::RadioButton("Y", &active_axes, 1); ImGui::SameLine();
-		ImGui::RadioButton("Z", &active_axes, 2);
-		*/
-		//printf("%d\n", item_type);
-
 		
 		
-
+		
+		// Model sliders: scale, translate, rotate
 		ImGui::Text("Model");
 
 		static float f_scale_x = 1.0f;
@@ -95,7 +80,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 
-
+		// Camera sliders: perspective/ orthographic, eye, at, up
 		ImGui::Text("Camera");
 
 		static int active_axes = 1;
@@ -108,9 +93,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		{ 
 			scene.is_orth = true; 
 		}
-		
-
-
+	
 		static float f_eye_x = 0.0f;
 		ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);
 		static float f_eye_y = 0.0f;
@@ -132,7 +115,6 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static float f_up_z = 0.0f;
 		ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
 
-
 		scene.cam_eye_x = f_eye_x;
 		scene.cam_eye_y = f_eye_x;
 		scene.cam_eye_z = f_eye_x;
@@ -142,12 +124,6 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		scene.cam_up_x = f_up_x;
 		scene.cam_up_y = f_up_x;
 		scene.cam_up_z = f_up_x;
-
-
-		//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-		//	counter++;
-		//ImGui::SameLine();
-		//ImGui::Text("counter = %d", counter);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();

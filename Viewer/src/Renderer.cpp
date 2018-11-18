@@ -185,8 +185,7 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 	vertex_index_2 -= 1;
 	glm::vec4 curr_vertex_2 = curr_vertices[vertex_index_2];
 
-
-
+	// The relevant data is vertex.x and vertex.y
 	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000);
 	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
 	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
@@ -194,7 +193,7 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 
 
 
-
+// Simply iterate all over the vertecies and muliply in tranform matrix
 std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran)
 {
 	std::vector<glm::vec4> transed_vetricies;
@@ -214,6 +213,8 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 }
 
 
+
+// Apply gui input on current model
 void SetWorldTransMat(Scene& scene, MeshModel& curr_model)
 {
 	curr_model.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
@@ -224,9 +225,9 @@ void SetWorldTransMat(Scene& scene, MeshModel& curr_model)
 }
 
 
+// Get all world transformed matricies and calc them together
 glm::mat4x4 getScenceTransMat(MeshModel curr_model)
 {
-	
 	glm::mat4x4 trans_mat = curr_model.GetTranslationMat();
 	glm::mat4x4 scale_mat = curr_model.GetScaleMat();
 	glm::mat4x4 rot_mat_x = curr_model.GetRotationMatX();
@@ -239,6 +240,7 @@ glm::mat4x4 getScenceTransMat(MeshModel curr_model)
 }
 
 
+// Apply camera projection
 void SetCameraProjection(Scene& scene)
 {
 	float left= (-1.0)*(0.5*1000);
@@ -255,6 +257,8 @@ void SetCameraProjection(Scene& scene)
 		far_);
 }
 
+
+// Apply gui input on camera view
 void SetCameraViewFromGui(Scene& scene)
 {
 	glm::vec3 eye(scene.cam_eye_x, scene.cam_eye_y, scene.cam_eye_z);
@@ -265,7 +269,7 @@ void SetCameraViewFromGui(Scene& scene)
 }
 
 
-
+// Main function
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
 
@@ -286,13 +290,13 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			// Handle view camera
 			SetCameraViewFromGui(scene);
 			//glm::mat4x4 viewCamera = scene.GetActiveCamera();
-			glm::mat4x4 viewCamera(1.0f);
+			glm::mat4x4 viewCamera(1.0f); // For debug
 
 
 			// Handle projection
 			SetCameraProjection(scene);
 			//glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			glm::mat4x4 projection(1.0f);
+			glm::mat4x4 projection(1.0f); // For debug
 
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
@@ -303,10 +307,7 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
-
-			
-
-
+			// Draw the faces lines
 			DrawFace(curr_face, transed_vertices);
 		}
 	}

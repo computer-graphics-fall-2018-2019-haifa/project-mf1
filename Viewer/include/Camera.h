@@ -3,19 +3,12 @@
 #include <glm/glm.hpp>
 #include "MeshModel.h"
 
-/*
- * Camera class. This class takes care of all the camera transformations and manipulations.
- *
- * Implementation suggestion:
- * --------------------------
- * Make the Camera class be a subclass of MeshModel, so you can easily and elegantly render 
- * the cameras you have added to the scene.
- */
+
 class Camera
 {
 private:
-	glm::mat4x4 viewTransformation;
-	glm::mat4x4 projectionTransformation;
+	glm::mat4x4 viewTransformation;			// holds the view tranform
+	glm::mat4x4 projectionTransformation;	// holds the projection tranform
 	float zoom;
 
 
@@ -52,10 +45,7 @@ public:
 
 	void SetZoom(const float zoom);
 
-	// Add more methods/functionality as needed...
 
 	glm::mat4x4 GetViewTransformation();
-
-
 	glm::mat4x4 GetCameraProjection();
 };
