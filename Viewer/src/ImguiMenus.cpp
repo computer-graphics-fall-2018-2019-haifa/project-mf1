@@ -47,11 +47,12 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 
-
+		/*
 		static int active_axes = 1;
 		ImGui::RadioButton("X", &active_axes, 0); ImGui::SameLine();
 		ImGui::RadioButton("Y", &active_axes, 1); ImGui::SameLine();
 		ImGui::RadioButton("Z", &active_axes, 2);
+		*/
 		//printf("%d\n", item_type);
 
 		/*
@@ -61,23 +62,26 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		if (ImGui::RadioButton("Z", active_axes == 2)) { mode = Mode_Swap; }
 		*/
 
+		ImGui::Text("Model");
+
+
 		static float f_scale_x = 1.0f;
-		ImGui::SliderFloat("scaleX", &f_scale_x, 1.0f, 10000.0f);
+		ImGui::SliderFloat("scaleX", &f_scale_x, 0.1f, 100.0f);
 		static float f_scale_y = 1.0f;
-		ImGui::SliderFloat("scaleY", &f_scale_y, 1.0f, 10000.0f);
+		ImGui::SliderFloat("scaleY", &f_scale_y, 0.1f, 100.0f);
 		static float f_scale_z = 1.0f;
-		ImGui::SliderFloat("scaleZ", &f_scale_z, 1.0f, 10000.0f);
+		ImGui::SliderFloat("scaleZ", &f_scale_z, 0.1f, 100.0f);
 
 
 		static float f_trans_x = 0.0f;
-		ImGui::SliderFloat("transX", &f_trans_x, 0.0f, 10000.0f);
+		ImGui::SliderFloat("transX", &f_trans_x, -500.0f, 500.0f);
 		static float f_trans_y = 0.0f;
-		ImGui::SliderFloat("transY", &f_trans_y, 0.0f, 10000.0f);
+		ImGui::SliderFloat("transY", &f_trans_y, -500.0f, 500.0f);
 		static float f_trans_z = 0.0f;
-		ImGui::SliderFloat("transZ", &f_trans_z, 0.0f, 10000.0f);
+		ImGui::SliderFloat("transZ", &f_trans_z, -500.0f, 500.0f);
 
 		static float f_rotation = 0.0f;
-		ImGui::SliderFloat("rotation", &f_rotation, 0.0f, 180.0f);
+		ImGui::SliderFloat("rotation", &f_rotation, -360.0f,360.0f);
 
 		scene.scaleX = f_scale_x;
 		scene.scaleY = f_scale_y;
@@ -89,7 +93,16 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 		scene.rotationAngle = f_rotation;
 
+		ImGui::Text("Camera");
+		static float f_trans_x_gui = 0.0f;
+		ImGui::SliderFloat("transX gui", &f_trans_x_gui, -500.0f, 500.0f);
+		static float f_trans_y_gui = 0.0f;
+		ImGui::SliderFloat("transY gui", &f_trans_y_gui, -500.0f, 500.0f);
+		static float f_trans_z_gui = 0.0f;
+		ImGui::SliderFloat("transZ gui", &f_trans_z_gui, -500.0f, 500.0f);
 
+		static float f_rotation_gui = 0.0f;
+		ImGui::SliderFloat("rotation gui", &f_rotation_gui, -360.0f, 360.0f);
 
 
 
