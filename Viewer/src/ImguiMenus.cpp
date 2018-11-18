@@ -90,7 +90,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		scene.translationZ = f_trans_z;
 
 		scene.rotationAngle_x = f_rotation_x;
-		scene.rotationAngle_y = f_rotation_z;
+		scene.rotationAngle_y = f_rotation_y;
 		scene.rotationAngle_z = f_rotation_z;
 
 
