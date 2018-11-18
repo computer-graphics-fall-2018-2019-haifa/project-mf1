@@ -289,14 +289,14 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			glm::mat4x4 viewCamera = scene.GetActiveCamera();
-			//glm::mat4x4 viewCamera(1.0f); // For debug
+			//glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			glm::mat4x4 viewCamera(1.0f); // For debug
 
 
 			// Handle projection
 			SetCameraProjection(scene);
-			glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			//glm::mat4x4 projection(1.0f); // For debug
+			//glm::mat4x4 projection = scene.GetActiveCameraProjection();
+			glm::mat4x4 projection(1.0f); // For debug
 
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
