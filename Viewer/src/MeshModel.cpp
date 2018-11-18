@@ -85,7 +85,8 @@ void MeshModel::SetTranslationMat(float x, float y, float z)
 	_translationMat[1][3] = y;
 	_translationMat[2][3] = z;
 
-	translationMat = glm::transpose(_translationMat);
+	//translationMat = glm::transpose(_translationMat);
+	translationMat = _translationMat;
 
 	return;
 }
