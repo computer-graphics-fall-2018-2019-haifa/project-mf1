@@ -49,10 +49,10 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::Text("");
 		ImGui::Text("Model");
 
-		static float f_scale_all = 1.0f;
-		static float f_scale_x = 1.0f;
-		static float f_scale_y = 1.0f;
-		static float f_scale_z = 1.0f;
+		static float f_scale_all = 5.0f;
+		static float f_scale_x = 5.0f;
+		static float f_scale_y = 5.0f;
+		static float f_scale_z = 5.0f;
 		if (ImGui::SliderFloat("scale all", &f_scale_all, 0.001f, 100.0f))
 		{
 			f_scale_x = f_scale_all;
@@ -66,11 +66,11 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 			ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
 		}
 
-		static float f_trans_x = 0.0f;
+		static float f_trans_x = 0.5f;
 		ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);
-		static float f_trans_y = 0.0f;
+		static float f_trans_y = 0.5f;
 		ImGui::SliderFloat("transY", &f_trans_y, -1.0f, 1.0f);
-		static float f_trans_z = 0.0f;
+		static float f_trans_z = 0.5f;
 		ImGui::SliderFloat("transZ", &f_trans_z, -1.0f,1.0f);
 
 		static float f_rotation_x = 0.0f;
