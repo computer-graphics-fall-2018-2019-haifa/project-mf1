@@ -171,8 +171,15 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 }
 
 
-void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
+void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bool is_2d_debug)
 {
+	float mul_factor = 1.0f;
+	if (is_2d_debug)
+	{
+		mul_factor = 10000;
+	}
+
+
 	int vertex_index_0 = curr_face.GetVertexIndex(0);
 	vertex_index_0 -= 1;
 	glm::vec4 curr_vertex_0 = curr_vertices[vertex_index_0];
@@ -186,9 +193,9 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 	glm::vec4 curr_vertex_2 = curr_vertices[vertex_index_2];
 
 	// The relevant data is vertex.x and vertex.y
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000);
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * 10000, curr_vertex_0[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
-	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * 10000, curr_vertex_1[1] * 10000, curr_vertex_2[0] * 10000, curr_vertex_2[1] * 10000);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * mul_factor, curr_vertex_0[1] * mul_factor, curr_vertex_1[0] * mul_factor, curr_vertex_1[1] * mul_factor);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * mul_factor, curr_vertex_0[1] * mul_factor, curr_vertex_2[0] * mul_factor, curr_vertex_2[1] * mul_factor);
+	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * mul_factor, curr_vertex_1[1] * mul_factor, curr_vertex_2[0] * mul_factor, curr_vertex_2[1] * mul_factor);
 }
 
 
@@ -272,6 +279,7 @@ void SetCameraViewFromGui(Scene& scene)
 // Main function
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
+	bool is_2d_debug = true; // For debug
 
 	// Draw all models
 	int num_models = scene.GetModelCount();
@@ -289,14 +297,26 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			//glm::mat4x4 viewCamera = scene.GetActiveCamera();
-			glm::mat4x4 viewCamera(1.0f); // For debug
+			glm::mat4x4 viewCamera(1.0f);
+			if (!is_2d_debug)
+			{
+				glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			}
+
+
+			
 
 
 			// Handle projection
 			SetCameraProjection(scene);
-			//glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			glm::mat4x4 projection(1.0f); // For debug
+			glm::mat4x4 projection(1.0f);
+			if (!is_2d_debug)
+			{
+				glm::mat4x4 projection = scene.GetActiveCameraProjection();
+			}
+			
+			
+			
 
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
@@ -308,7 +328,7 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 			// Draw the faces lines
-			DrawFace(curr_face, transed_vertices);
+			DrawFace(curr_face, transed_vertices, is_2d_debug);
 		}
 	}
 	
