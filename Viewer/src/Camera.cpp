@@ -16,6 +16,8 @@ Camera::~Camera()
 {
 }
 
+
+
 void Camera::SetCameraLookAt(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp)
 {
 	glm::vec3 forward = glm::normalize(from - to);
@@ -67,6 +69,18 @@ void Camera::SetOrthographicProjection(
 
 	projectionTransformation = orthographicMat;
 
+}
+
+
+
+void Camera::SetCameraProjection(const float left,
+	const float right,
+	const float bottom,
+	const float top,
+	const float near,
+	const float far)
+{
+	SetOrthographicProjection(left, right, bottom, top, near, far);
 }
 
 

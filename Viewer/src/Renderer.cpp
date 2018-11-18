@@ -217,9 +217,7 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 
 glm::mat4x4 Renderer::getMatFromGui(Scene& scene)
 {
-	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
-	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
-
+	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
 	glm::mat4x4 scale_mat = scene.GetScaleMat();
 
@@ -227,6 +225,39 @@ glm::mat4x4 Renderer::getMatFromGui(Scene& scene)
 	glm::mat4x4 res_mat = trans_mat * scale_mat;
 
 	return res_mat;
+}
+
+
+void SetCameraProjection(Scene& Scene)
+{
+	float left= (-1.0)*(0.5*1000);
+	float right = (0.5 * 1000);
+	float bottom = (-1.0)*(0.5 * 1000);
+	float top = (0.5 * 1000);
+	float near_ = 1.0;
+	float far_ = 200.0;
+	Scene.SetCameraProjection(left,
+		right,
+		bottom,
+		top,
+		near_,
+		far_);
+}
+
+void SetCameraViewFromGui(Scene& scene)
+{
+	glm::vec3 from(glm::vec3(1.0));
+	glm::vec3& to(glm::vec3(1.0));
+	glm::vec3& tmp(glm::vec3(1.0));
+
+	scene.SetCameraView(from,to,tmp);
+}
+
+
+void SetTransMatFromGui(Scene& scene)
+{
+	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
+	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
 }
 
 
@@ -248,14 +279,25 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 
 
-
+			// Handle Trans mat of model
+			SetTransMatFromGui(scene);
 			glm::mat4x4 curr_tran = getMatFromGui(scene);
+
+
+			// Handle view camera
+			SetCameraViewFromGui(scene);
 			glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCamera());
+
+
+			// Handle projection
+			SetCameraProjection(scene);
 			glm::mat4x4 projection = scene.GetActiveCameraProjection();
 
-			glm::mat4x4 tarns_mat = curr_tran * viewCamera*projection;
 
+			// Calc all maticies
+			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
 
+			// Apply on all verticies
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 

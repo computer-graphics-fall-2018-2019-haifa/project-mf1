@@ -73,6 +73,28 @@ const int Scene::GetActiveModelIndex() const
 	return activeModelIndex;
 }
 
+void Scene::SetCameraView(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp)
+{
+	cameras[activeCameraIndex].SetCameraLookAt(from,to,tmp);
+}
+
+
+void Scene::SetCameraProjection(const float left,
+	const float right,
+	const float bottom,
+	const float top,
+	const float near_,
+	const float far_)
+{
+	cameras[activeCameraIndex].SetCameraProjection(left,
+		right,
+		bottom,
+		top,
+		near_,
+		far_);
+}
+
+
 glm::mat4x4 Scene::GetActiveCamera()
 {
 	return cameras[activeCameraIndex].GetViewTransformation();

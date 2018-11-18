@@ -65,6 +65,15 @@ public:
 	const glm::mat4x4 GetRotationMatZ();
 
 
+	void SetCameraView(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp);
+	void SetCameraProjection(const float left,
+		const float right,
+		const float bottom,
+		const float top,
+		const float near,
+		const float far);
+
+
 	glm::mat4x4 GetActiveCamera();
 	glm::mat4x4 GetActiveCameraProjection();
 
