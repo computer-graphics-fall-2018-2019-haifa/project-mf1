@@ -18,26 +18,8 @@ Camera::~Camera()
 
 
 
-void Camera::SetCameraLookAt(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp)
+void Camera::SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
-	glm::vec3 forward = glm::normalize(from - to);
-	glm::vec3 right = glm::cross(glm::normalize(tmp), forward);
-	glm::vec3 up = glm::cross(forward, right);
-
-	viewTransformation[0][0] = right.x;
-	viewTransformation[0][1] = right.y;
-	viewTransformation[0][2] = right.z;
-	viewTransformation[1][0] = up.x;
-	viewTransformation[1][1] = up.y;
-	viewTransformation[1][2] = up.z;
-	viewTransformation[2][0] = forward.x;
-	viewTransformation[2][1] = forward.y;
-	viewTransformation[2][2] = forward.z;
-
-	viewTransformation[3][0] = from.x;
-	viewTransformation[3][1] = from.y;
-	viewTransformation[3][2] = from.z;
-
 	/*
 	glm::vec4 z = glm::normalize(eye - at);
 	glm::vec4 x = glm::normalize(glm::cross(up, n));
@@ -46,6 +28,26 @@ void Camera::SetCameraLookAt(const glm::vec3& from, const glm::vec3& to, const g
 	glm::mat4 c = mat4(u, v, n, t);
 	viewTransformation = c * Translate(-eye);
 	*/
+
+
+	glm::vec3 z = glm::normalize(eye - at);
+	glm::vec4 _z(z[0], z[1], z[2], 0);
+
+	glm::vec3 x = glm::normalize(glm::cross(up, z));
+	glm::vec4 _x(x[0], x[1], x[2], 0);
+
+	glm::vec3 y = glm::normalize(glm::cross(x, z));
+	glm::vec4 _y(y[0], y[1], y[2], 0);
+
+	glm::vec4 t = glm::vec4(0.0, 0.0, 0.0, 1.0);
+	
+	glm::mat4 c = glm::transpose(glm::mat4(_x, _y, _z, t));
+	
+	glm::mat4x4 identity(1.0);
+	identity[0][3] = eye[0];
+	identity[1][3] = eye[1];
+	identity[2][3] = eye[2];
+	viewTransformation = c * identity;
 }
 
 void Camera::SetOrthographicProjection(

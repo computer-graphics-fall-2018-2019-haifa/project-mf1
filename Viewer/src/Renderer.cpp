@@ -220,9 +220,10 @@ glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
 	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
 	glm::mat4x4 scale_mat = scene.GetScaleMat();
+	glm::mat4x4 rot_mat = scene.GetSRotationMat();
 
 
-	glm::mat4x4 res_mat = trans_mat * scale_mat;
+	glm::mat4x4 res_mat = trans_mat * scale_mat * rot_mat;
 
 	return res_mat;
 }
@@ -263,8 +264,6 @@ void SetTransMatFromGui(Scene& scene)
 
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
-
-
 
 	// Draw all models
 	int num_models = scene.GetModelCount();
