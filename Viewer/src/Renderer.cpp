@@ -210,7 +210,6 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 		transed_vetricies.push_back(res_vertex);
 	}
 
-
 	return transed_vetricies;
 }
 
