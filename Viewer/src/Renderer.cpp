@@ -198,6 +198,8 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 {
 	std::vector<glm::vec4> transed_vetricies;
 
+	glm::mat4 _curr_tran(curr_tran);
+
 	for (std::vector<glm::vec3>::iterator it = curr_vertices.begin(); it != curr_vertices.end(); ++it)
 	{
 		glm::vec4 tmp(1.0);
@@ -205,7 +207,7 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 		tmp[1] = it->y;
 		tmp[2] = it->z;
 
-		glm::vec4 res_vertex = curr_tran * tmp;
+		glm::vec4 res_vertex = _curr_tran * tmp;
 		transed_vetricies.push_back(res_vertex);
 	}
 
