@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "MeshModel.h"
 #include <string>
+#include "corecrt_math_defines.h"
 
 Scene::Scene() :
 	activeCameraIndex(0),
@@ -139,51 +140,50 @@ const glm::mat4x4 Scene::GetScaleMat() const
 
 void Scene::SetRotationMatX(float angle)
 {
-	float sin_angle = sin(angle);
-	float cos_angle = cos(angle);
+	float sin_angle = float(sin(angle)* M_PI / 180.0);
+	float cos_angle = float(cos(angle)* M_PI / 180.0);
 
-	/*
+	
 	RotationMatX[1][1] = cos_angle;
-	RotationMatX[1][2] = -sin_angle;
+	RotationMatX[1][2] = (-1.0)*sin_angle;
 	RotationMatX[2][1] = sin_angle;
 	RotationMatX[2][2] = cos_angle;
-	*/
+	
 	return;
 }
-const glm::mat4x4 Scene::GetRotationMatX()
+const glm::mat4x4 Scene::GetRotationMatX() const
 {
 	return RotationMatX;
 }
 
-void Scene::SetRotationMatY(float angle) const
+void Scene::SetRotationMatY(float angle)
 {
-	float sin_angle = sin(angle);
-	float cos_angle = cos(angle);
+	float sin_angle = float(sin(angle)* M_PI / 180.0);
+	float cos_angle = float(cos(angle)* M_PI / 180.0);
 
-	/*
 	RotationMatY[1][1] = cos_angle;
-	RotationMatY[1][2] = -sin_angle;
+	RotationMatY[1][2] = (-1.0)*sin_angle;
 	RotationMatY[2][1] = sin_angle;
 	RotationMatY[2][2] = cos_angle;
-	*/
+	
 
 	return;
 }
-const glm::mat4x4 Scene::GetRotationMatY()
+const glm::mat4x4 Scene::GetRotationMatY() const
 {
 	return RotationMatY;
 }
-void Scene::SetRotationMatZ(float angle) const
+void Scene::SetRotationMatZ(float angle)
 {
-	float sin_angle = sin(angle);
-	float cos_angle = cos(angle);
+	float sin_angle = float(sin(angle) * M_PI / 180.0);
+	float cos_angle = float(cos(angle) * M_PI / 180.0);
 
-	/*
+	
 	RotationMatZ[1][1] = cos_angle;
-	RotationMatZ[1][2] = -sin_angle;
+	RotationMatZ[1][2] = (-1.0)*sin_angle;
 	RotationMatZ[2][1] = sin_angle;
 	RotationMatZ[2][2] = cos_angle;
-	*/
+	
 
 	return;
 }

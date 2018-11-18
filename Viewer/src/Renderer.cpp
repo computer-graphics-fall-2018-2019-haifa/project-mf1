@@ -215,15 +215,27 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 }
 
 
+void SetScenceTransMat(Scene& scene)
+{
+	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
+	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
+	//scene.SetRotationMatX();
+	//scene.SetRotationMatY();
+	//scene.SetRotationMatZ();
+}
+
+
 glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
 {
 	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
 	glm::mat4x4 scale_mat = scene.GetScaleMat();
-	glm::mat4x4 rot_mat = scene.GetSRotationMat();
+	glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
+	glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
+	glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
 
 
-	glm::mat4x4 res_mat = trans_mat * scale_mat * rot_mat;
+	glm::mat4x4 res_mat = trans_mat * scale_mat * rot_mat_x * rot_mat_y * rot_mat_z;
 
 	return res_mat;
 }
@@ -273,8 +285,8 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		int num_faces = curr_model.GetFacesCount();
 		for (int y = 0; y < num_faces; y++)
 		{
-			// Handle Trans mat of model
-			getScenceTransMat(scene);
+			// Handle Trans mat of world
+			SetScenceTransMat(scene);
 			glm::mat4x4 curr_tran = getScenceTransMat(scene);
 
 

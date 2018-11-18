@@ -58,10 +58,10 @@ public:
 	void SetScaleMat(float x, float y, float z);
 	const glm::mat4x4 GetScaleMat() const;
 	void SetRotationMatX(float angle);
-	const glm::mat4x4 GetRotationMatX();
-	void SetRotationMatY(float angle) const;
-	const glm::mat4x4 GetRotationMatY();
-	void SetRotationMatZ(float angle) const;
+	const glm::mat4x4 GetRotationMatX() const;
+	void SetRotationMatY(float angle);
+	const glm::mat4x4 GetRotationMatY() const;
+	void SetRotationMatZ(float angle);
 	const glm::mat4x4 GetRotationMatZ();
 
 
