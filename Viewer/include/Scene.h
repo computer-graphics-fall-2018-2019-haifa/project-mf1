@@ -88,7 +88,9 @@ public:
 	float translationY;
 	float translationZ;
 
-	float rotationAngle;
+	float rotationAngle_x;
+	float rotationAngle_y;
+	float rotationAngle_z;
 
 	float cam_eye_x;
 	float cam_eye_y;

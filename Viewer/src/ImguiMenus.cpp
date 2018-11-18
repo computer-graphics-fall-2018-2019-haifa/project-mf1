@@ -80,8 +80,12 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static float f_trans_z = 0.0f;
 		ImGui::SliderFloat("transZ", &f_trans_z, -500.0f, 500.0f);
 
-		static float f_rotation = 0.0f;
-		ImGui::SliderFloat("rotation", &f_rotation, -360.0f,360.0f);
+		static float f_rotation_x = 0.0f;
+		ImGui::SliderFloat("rotation x", &f_rotation_x, -360.0f,360.0f);
+		static float f_rotation_y = 0.0f;
+		ImGui::SliderFloat("rotation y", &f_rotation_y, -360.0f, 360.0f);
+		static float f_rotation_z = 0.0f;
+		ImGui::SliderFloat("rotation z", &f_rotation_z, -360.0f, 360.0f);
 
 		scene.scaleX = f_scale_x;
 		scene.scaleY = f_scale_y;
@@ -91,7 +95,9 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		scene.translationY = f_trans_y;
 		scene.translationZ = f_trans_z;
 
-		scene.rotationAngle = f_rotation;
+		scene.rotationAngle_x = f_rotation_x;
+		scene.rotationAngle_y = f_rotation_z;
+		scene.rotationAngle_z = f_rotation_z;
 
 		ImGui::Text("Camera");
 

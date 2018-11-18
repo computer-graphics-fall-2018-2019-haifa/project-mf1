@@ -219,9 +219,9 @@ void SetScenceTransMat(Scene& scene)
 {
 	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
 	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
-	//scene.SetRotationMatX();
-	//scene.SetRotationMatY();
-	//scene.SetRotationMatZ();
+	scene.SetRotationMatX(scene.rotationAngle_x);
+	scene.SetRotationMatY(scene.rotationAngle_y);
+	scene.SetRotationMatZ(scene.rotationAngle_z);
 }
 
 
