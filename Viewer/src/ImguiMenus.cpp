@@ -98,9 +98,16 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 		ImGui::Text("Camera");
 
-		static int active_axes = 0;
-		if (ImGui::RadioButton("Perspective", &active_axes,0)) { scene.is_orth = false; } ImGui::SameLine();
-		if (ImGui::RadioButton("Orthographic", &active_axes ,1)) { scene.is_orth = true; }
+		static int active_axes = 1;
+		if (ImGui::RadioButton("Perspective", &active_axes,0)) 
+		{ 
+			scene.is_orth = false; 
+		} 
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Orthographic", &active_axes ,1)) 
+		{ 
+			scene.is_orth = true; 
+		}
 		
 
 

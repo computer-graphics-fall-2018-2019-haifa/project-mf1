@@ -18,11 +18,20 @@ private:
 	glm::mat4x4 projectionTransformation;
 	float zoom;
 
+
 public:
 	Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
 	~Camera();
 
 	void SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
+
+	void SetCameraProjection(const float left,
+		const float right,
+		const float bottom,
+		const float top,
+		const float near,
+		const float far,
+		bool is_orth);
 
 	void SetOrthographicProjection(
 		const float left,
@@ -34,8 +43,10 @@ public:
 	);
 
 	void SetPerspectiveProjection(
-		const float fovy,
-		const float aspect,
+		const float left,
+		const float right,
+		const float bottom,
+		const float top,
 		const float near,
 		const float far);
 
@@ -44,17 +55,7 @@ public:
 	// Add more methods/functionality as needed...
 
 	glm::mat4x4 GetViewTransformation();
-	glm::mat4x4 GetOrthographicMat();
-
-	void SetCameraProjection(const float left,
-		const float right,
-		const float bottom,
-		const float top,
-		const float near,
-		const float far);
 
 
-
-
-	
+	glm::mat4x4 GetCameraProjection();
 };

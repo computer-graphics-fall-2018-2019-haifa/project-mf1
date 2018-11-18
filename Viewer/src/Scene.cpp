@@ -90,7 +90,8 @@ void Scene::SetCameraProjection(const float left,
 		bottom,
 		top,
 		near_,
-		far_);
+		far_,
+		is_orth);
 }
 
 
@@ -103,7 +104,7 @@ glm::mat4x4 Scene::GetActiveCamera()
 
 glm::mat4x4 Scene::GetActiveCameraProjection()
 {
-	return cameras[activeCameraIndex].GetOrthographicMat();
+	return  cameras[activeCameraIndex].GetCameraProjection();
 }
 
 

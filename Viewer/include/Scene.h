@@ -56,7 +56,6 @@ public:
 
 
 
-	// TODO delete those fields
 	float scaleX;
 	float scaleY;
 	float scaleZ;
@@ -81,8 +80,4 @@ public:
 
 	bool is_orth;
 
-
-
-
-	// TODO delete those fields
 };

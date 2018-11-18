@@ -69,6 +69,7 @@ void Camera::SetOrthographicProjection(
 	orthographicMat[1][3] = -1 * ((top + bottom) / (top - bottom));
 	orthographicMat[2][3] = -1 * ((far + near) / (far - near));
 
+	// Update projection
 	projectionTransformation = orthographicMat;
 
 }
@@ -80,21 +81,43 @@ void Camera::SetCameraProjection(const float left,
 	const float bottom,
 	const float top,
 	const float near,
-	const float far)
+	const float far,
+	bool is_orth)
 {
-	SetOrthographicProjection(left, right, bottom, top, near, far);
+	if (is_orth)
+	{
+		SetOrthographicProjection(left, right, bottom, top, near, far);
+	}
+	else
+	{
+		SetPerspectiveProjection(left, right, bottom, top, near, far);
+	}
+	
 }
 
 
 
 
 void Camera::SetPerspectiveProjection(
-	const float fovy,
-	const float aspectRatio,
+	const float left,
+	const float right,
+	const float bottom,
+	const float top,
 	const float near,
 	const float far)
 {
+	glm::mat4x4 PerspectiveMat(glm::mat4(0.0));
 
+	PerspectiveMat[0][0] = (2.0f*near) / (right - left);
+	PerspectiveMat[0][2] = (right + left) / (right - left);
+	PerspectiveMat[1][1] = (2.0f*near) / (top - bottom);
+	PerspectiveMat[1][2] = (top + bottom) / (top - bottom);
+	PerspectiveMat[2][2] = (-1.0f)*((far + near) / (far - near));
+	PerspectiveMat[2][3] = (-1.0f)*((2.0f*far*near) / (far - near));
+	PerspectiveMat[3][2] = (-1.0f);
+
+	// Update projection
+	projectionTransformation = PerspectiveMat;
 }
 
 void Camera::SetZoom(const float zoom)
@@ -109,9 +132,8 @@ glm::mat4x4 Camera::GetViewTransformation()
 	return viewTransformation;
 }
 
-
-
-glm::mat4x4 Camera::GetOrthographicMat()
+glm::mat4x4 Camera::GetCameraProjection()
 {
 	return projectionTransformation;
 }
+

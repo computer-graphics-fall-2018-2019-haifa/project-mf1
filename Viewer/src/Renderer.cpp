@@ -239,7 +239,7 @@ glm::mat4x4 getScenceTransMat(MeshModel curr_model)
 }
 
 
-void SetCameraProjection(Scene& Scene)
+void SetCameraProjection(Scene& scene)
 {
 	float left= (-1.0)*(0.5*1000);
 	float right = (0.5 * 1000);
@@ -247,7 +247,7 @@ void SetCameraProjection(Scene& Scene)
 	float top = (0.5 * 1000);
 	float near_ = 1.0;
 	float far_ = 200.0;
-	Scene.SetCameraProjection(left,
+	scene.SetCameraProjection(left,
 		right,
 		bottom,
 		top,
