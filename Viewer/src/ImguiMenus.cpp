@@ -49,12 +49,22 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::Text("");
 		ImGui::Text("Model");
 
+		static float f_scale_all = 1.0f;
 		static float f_scale_x = 1.0f;
-		ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
 		static float f_scale_y = 1.0f;
-		ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
 		static float f_scale_z = 1.0f;
-		ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
+		if (ImGui::SliderFloat("scale all", &f_scale_all, 0.001f, 100.0f))
+		{
+			f_scale_x = f_scale_all;
+			f_scale_y = f_scale_all;
+			f_scale_z = f_scale_all;
+		}
+		else
+		{
+			ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
+			ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
+			ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
+		}
 
 		static float f_trans_x = 0.0f;
 		ImGui::SliderFloat("transX", &f_trans_x, -1000.0f, 1000.0f);
