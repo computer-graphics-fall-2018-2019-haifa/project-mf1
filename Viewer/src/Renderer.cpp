@@ -214,28 +214,24 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 }
 
 
-void SetScenceTransMat(Scene& scene)
+void SetWorldTransMat(Scene& scene, MeshModel& curr_model)
 {
-	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
-	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
-	scene.SetRotationMatX(scene.rotationAngle_x);
-	scene.SetRotationMatY(scene.rotationAngle_y);
-	scene.SetRotationMatZ(scene.rotationAngle_z);
+	curr_model.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
+	curr_model.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
+	curr_model.SetRotationMatX(scene.rotationAngle_x);
+	curr_model.SetRotationMatY(scene.rotationAngle_y);
+	curr_model.SetRotationMatZ(scene.rotationAngle_z);
 }
 
 
-glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
+glm::mat4x4 getScenceTransMat(MeshModel curr_model)
 {
 	
-	glm::mat4x4 trans_mat = scene.GetTranslationMat();
-	glm::mat4x4 scale_mat = scene.GetScaleMat();
-	glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
-	glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
-	glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
-	//glm::mat4x4 rot_mat_x(1.0f);
-	//glm::mat4x4 rot_mat_y(1.0f);
-	//glm::mat4x4 rot_mat_z(1.0f);
-
+	glm::mat4x4 trans_mat = curr_model.GetTranslationMat();
+	glm::mat4x4 scale_mat = curr_model.GetScaleMat();
+	glm::mat4x4 rot_mat_x = curr_model.GetRotationMatX();
+	glm::mat4x4 rot_mat_y = curr_model.GetRotationMatY();
+	glm::mat4x4 rot_mat_z = curr_model.GetRotationMatZ();
 
 	glm::mat4x4 res_mat = trans_mat  * rot_mat_x * rot_mat_y * rot_mat_z* scale_mat;
 
@@ -269,12 +265,6 @@ void SetCameraViewFromGui(Scene& scene)
 }
 
 
-void SetTransMatFromGui(Scene& scene)
-{
-	scene.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
-	scene.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
-}
-
 
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
@@ -288,9 +278,10 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		for (int y = 0; y < num_faces; y++)
 		{
 			// Handle world Trans mat 
-			SetScenceTransMat(scene);
-			glm::mat4x4 curr_tran = getScenceTransMat(scene);
+			SetWorldTransMat(scene, curr_model);
+			glm::mat4x4 curr_tran = getScenceTransMat(curr_model);
 			//glm::mat4x4 curr_tran(1.0f);
+
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);

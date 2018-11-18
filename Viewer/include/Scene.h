@@ -17,22 +17,8 @@ private:
 	std::vector<std::shared_ptr<MeshModel>> models;
 	std::vector<Camera> cameras;
 
-	glm::mat4x4 translationMat;
-	glm::mat4x4 scaleMat;
-	glm::mat4x4 RotationMatX;
-	glm::mat4x4 RotationMatY;
-	glm::mat4x4 RotationMatZ;
-
-
-
 	int activeCameraIndex;
 	int activeModelIndex;
-
-
-
-	
-
-
 
 
 public:
@@ -53,16 +39,7 @@ public:
 
 	// Add more methods as needed...
 
-	void SetTranslationMat(float x, float y, float z);
-	const glm::mat4x4 GetTranslationMat() const;
-	void SetScaleMat(float x, float y, float z);
-	const glm::mat4x4 GetScaleMat() const;
-	void SetRotationMatX(float angle);
-	const glm::mat4x4 GetRotationMatX() const;
-	void SetRotationMatY(float angle);
-	const glm::mat4x4 GetRotationMatY() const;
-	void SetRotationMatZ(float angle);
-	const glm::mat4x4 GetRotationMatZ();
+	
 
 
 	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
