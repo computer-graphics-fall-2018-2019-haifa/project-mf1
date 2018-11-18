@@ -176,7 +176,7 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bo
 	float mul_factor = 1.0f;
 	if (is_2d_debug)
 	{
-		mul_factor = 10000;
+		mul_factor = 10000.0f;
 	}
 
 
