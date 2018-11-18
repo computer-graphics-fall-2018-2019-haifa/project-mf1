@@ -243,12 +243,12 @@ glm::mat4x4 getScenceTransMat(MeshModel curr_model)
 // Apply camera projection
 void SetCameraProjection(Scene& scene)
 {
-	float left= (-1.0)*(0.5*1000);
-	float right = (0.5 * 1000);
-	float bottom = (-1.0)*(0.5 * 1000);
-	float top = (0.5 * 1000);
-	float near_ = 1.0;
-	float far_ = 200.0;
+	float left= (-500.0f);
+	float right = (500.0);
+	float bottom = (-200.0);
+	float top = (200.0);
+	float near_ = 10.0;
+	float far_ = 150.0;
 	scene.SetCameraProjection(left,
 		right,
 		bottom,
@@ -289,14 +289,14 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			//glm::mat4x4 viewCamera = scene.GetActiveCamera();
-			glm::mat4x4 viewCamera(1.0f); // For debug
+			glm::mat4x4 viewCamera = scene.GetActiveCamera();
+			//glm::mat4x4 viewCamera(1.0f); // For debug
 
 
 			// Handle projection
 			SetCameraProjection(scene);
-			//glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			glm::mat4x4 projection(1.0f); // For debug
+			glm::mat4x4 projection = scene.GetActiveCameraProjection();
+			//glm::mat4x4 projection(1.0f); // For debug
 
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;

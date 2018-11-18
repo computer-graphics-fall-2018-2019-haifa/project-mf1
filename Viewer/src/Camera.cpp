@@ -8,7 +8,7 @@ Camera::Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up) :
 	zoom(1.0)
 {
 	SetCameraLookAt(eye, at, up);
-	SetOrthographicProjection((-500.0),500.0, (-500.0),500.0,1.0,200.0);
+	SetOrthographicProjection((-500.0f),500.0f, (-200.0f),200.0f,10.0f,150.0f);
 }
 
 Camera::~Camera()
