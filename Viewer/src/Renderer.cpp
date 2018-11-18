@@ -229,12 +229,12 @@ glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
 	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
 	glm::mat4x4 scale_mat = scene.GetScaleMat();
-	//glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
-	//glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
-	//glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
-	glm::mat4x4 rot_mat_x(1.0f);
-	glm::mat4x4 rot_mat_y(1.0f);
-	glm::mat4x4 rot_mat_z(1.0f);
+	glm::mat4x4 rot_mat_x = scene.GetRotationMatX();
+	glm::mat4x4 rot_mat_y = scene.GetRotationMatY();
+	glm::mat4x4 rot_mat_z = scene.GetRotationMatZ();
+	//glm::mat4x4 rot_mat_x(1.0f);
+	//glm::mat4x4 rot_mat_y(1.0f);
+	//glm::mat4x4 rot_mat_z(1.0f);
 
 
 	glm::mat4x4 res_mat = trans_mat  * rot_mat_x * rot_mat_y * rot_mat_z* scale_mat;

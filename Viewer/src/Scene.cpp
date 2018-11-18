@@ -148,8 +148,8 @@ const glm::mat4x4 Scene::GetScaleMat() const
 
 void Scene::SetRotationMatX(float angle)
 {
-	float sin_angle = float(sin(angle)* M_PI / 180.0f);
-	float cos_angle = float(cos(angle)* M_PI / 180.0f);
+	float sin_angle = float(sin(angle* M_PI / 180.0f));
+	float cos_angle = float(cos(angle* M_PI / 180.0f));
 
 	
 	RotationMatX[1][1] = cos_angle;
@@ -166,8 +166,8 @@ const glm::mat4x4 Scene::GetRotationMatX() const
 
 void Scene::SetRotationMatY(float angle)
 {
-	float sin_angle = float(sin(angle)* M_PI / 180.0);
-	float cos_angle = float(cos(angle)* M_PI / 180.0);
+	float sin_angle = float(sin(angle* M_PI / 180.0));
+	float cos_angle = float(cos(angle* M_PI / 180.0));
 
 	RotationMatY[1][1] = cos_angle;
 	RotationMatY[1][2] = (-1.0)*sin_angle;
@@ -183,8 +183,8 @@ const glm::mat4x4 Scene::GetRotationMatY() const
 }
 void Scene::SetRotationMatZ(float angle)
 {
-	float sin_angle = float(sin(angle) * M_PI / 180.0);
-	float cos_angle = float(cos(angle) * M_PI / 180.0);
+	float sin_angle = float(sin(angle * M_PI / 180.0));
+	float cos_angle = float(cos(angle * M_PI / 180.0));
 
 	
 	RotationMatZ[1][1] = cos_angle;
