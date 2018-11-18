@@ -94,16 +94,38 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		scene.rotationAngle = f_rotation;
 
 		ImGui::Text("Camera");
-		static float f_trans_x_gui = 0.0f;
-		ImGui::SliderFloat("transX gui", &f_trans_x_gui, -500.0f, 500.0f);
-		static float f_trans_y_gui = 0.0f;
-		ImGui::SliderFloat("transY gui", &f_trans_y_gui, -500.0f, 500.0f);
-		static float f_trans_z_gui = 0.0f;
-		ImGui::SliderFloat("transZ gui", &f_trans_z_gui, -500.0f, 500.0f);
 
-		static float f_rotation_gui = 0.0f;
-		ImGui::SliderFloat("rotation gui", &f_rotation_gui, -360.0f, 360.0f);
+		static float f_eye_x = 0.0f;
+		ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);
+		static float f_eye_y = 0.0f;
+		ImGui::SliderFloat("eye y", &f_eye_y, -100.0f, 100.0f);
+		static float f_eye_z = 0.0f;
+		ImGui::SliderFloat("eye z", &f_eye_z, -100.0f, 100.0f);
 
+		static float f_at_x = 0.0f;
+		ImGui::SliderFloat("at x", &f_at_x, -100.0f, 100.0f);
+		static float f_at_y = 0.0f;
+		ImGui::SliderFloat("at y", &f_at_y, -100.0f, 100.0f);
+		static float f_at_z = 0.0f;
+		ImGui::SliderFloat("at z", &f_at_z, -100.0f, 100.0f);
+
+		static float f_up_x = 0.0f;
+		ImGui::SliderFloat("up x", &f_up_x, -100.0f, 100.0f);
+		static float f_up_y = 0.0f;
+		ImGui::SliderFloat("up y", &f_up_y, -100.0f, 100.0f);
+		static float f_up_z = 0.0f;
+		ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
+
+
+		scene.cam_eye_x = f_eye_x;
+		scene.cam_eye_y = f_eye_x;
+		scene.cam_eye_z = f_eye_x;
+		scene.cam_at_x = f_at_x;
+		scene.cam_at_y = f_at_x;
+		scene.cam_at_z = f_at_x;
+		scene.cam_up_x = f_up_x;
+		scene.cam_up_y = f_up_x;
+		scene.cam_up_z = f_up_x;
 
 
 		//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)

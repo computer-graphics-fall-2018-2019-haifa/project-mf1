@@ -65,7 +65,7 @@ public:
 	const glm::mat4x4 GetRotationMatZ();
 
 
-	void SetCameraView(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp);
+	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);
 	void SetCameraProjection(const float left,
 		const float right,
 		const float bottom,
@@ -79,7 +79,6 @@ public:
 
 
 
-
 	// TODO delete those fields
 	float scaleX;
 	float scaleY;
@@ -90,5 +89,19 @@ public:
 	float translationZ;
 
 	float rotationAngle;
+
+	float cam_eye_x;
+	float cam_eye_y;
+	float cam_eye_z;
+	float cam_at_x;
+	float cam_at_y;
+	float cam_at_z;
+	float cam_up_x;
+	float cam_up_y;
+	float cam_up_z;
+
+
+
+
 	// TODO delete those fields
 };

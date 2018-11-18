@@ -215,7 +215,7 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 }
 
 
-glm::mat4x4 Renderer::getMatFromGui(Scene& scene)
+glm::mat4x4 Renderer::getScenceTransMat(Scene& scene)
 {
 	
 	glm::mat4x4 trans_mat = scene.GetTranslationMat();
@@ -246,11 +246,11 @@ void SetCameraProjection(Scene& Scene)
 
 void SetCameraViewFromGui(Scene& scene)
 {
-	glm::vec3 from(glm::vec3(1.0));
-	glm::vec3& to(glm::vec3(1.0));
-	glm::vec3& tmp(glm::vec3(1.0));
+	glm::vec3 eye(scene.cam_eye_x, scene.cam_eye_y, scene.cam_eye_z);
+	glm::vec3 at(scene.cam_at_x, scene.cam_at_y, scene.cam_at_z);
+	glm::vec3 up(scene.cam_up_x, scene.cam_up_y, scene.cam_up_z);
 
-	scene.SetCameraView(from,to,tmp);
+	scene.SetCameraView(eye,at,up);
 }
 
 
@@ -274,19 +274,14 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		int num_faces = curr_model.GetFacesCount();
 		for (int y = 0; y < num_faces; y++)
 		{
-			Face curr_face = curr_model.GetFace(y);
-
-			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
-
-
 			// Handle Trans mat of model
-			SetTransMatFromGui(scene);
-			glm::mat4x4 curr_tran = getMatFromGui(scene);
+			getScenceTransMat(scene);
+			glm::mat4x4 curr_tran = getScenceTransMat(scene);
 
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCamera());
+			glm::mat4x4 viewCamera = scene.GetActiveCamera();
 
 
 			// Handle projection
@@ -297,7 +292,10 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			// Calc all maticies
 			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
 
+
 			// Apply on all verticies
+			Face curr_face = curr_model.GetFace(y);
+			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 

@@ -43,7 +43,7 @@ public:
 	void plotLineLow(int x0, int y0, int x1, int y1);
 	void DrawFace(Face curr_face,  std::vector<glm::vec4> curr_vertices);
 	std::vector<glm::vec4> TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran);
-	glm::mat4x4 getMatFromGui(Scene& scene);
+	glm::mat4x4 getScenceTransMat(Scene& scene);
 
 
 };

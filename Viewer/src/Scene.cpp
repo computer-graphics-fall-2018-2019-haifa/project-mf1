@@ -73,9 +73,9 @@ const int Scene::GetActiveModelIndex() const
 	return activeModelIndex;
 }
 
-void Scene::SetCameraView(const glm::vec3& from, const glm::vec3& to, const glm::vec3& tmp)
+void Scene::SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
 {
-	cameras[activeCameraIndex].SetCameraLookAt(from,to,tmp);
+	cameras[activeCameraIndex].SetCameraLookAt(eye,at,up);
 }
 
 
