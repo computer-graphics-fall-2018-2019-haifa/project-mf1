@@ -60,8 +60,14 @@ int main(int argc, char **argv)
 
 	
 	//for debug add model pawn TODO delete
-	const std::string& filePath = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\pawn.obj";
-	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath)));
+	const std::string& filePath0 = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\pawn.obj";
+	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath0)));
+
+	const std::string& filePath1 = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\bishop.obj";
+	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath1)));
+
+	const std::string& filePath2 = "D:\\projects\\cg\\project-mf1\\Data\\obj_examples\\banana.obj";
+	scene.AddModel(std::make_shared<MeshModel>(Utils::LoadMeshModel(filePath2)));
 	//for debug add model pawn TODO delete
 
 
