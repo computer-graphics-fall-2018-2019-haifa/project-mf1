@@ -116,6 +116,31 @@ glm::mat4x4 Scene::GetActiveModelRotationMatZ()
 }
 
 
+void Scene::GetWorldTranform(
+	float* _f_scale_x,
+	float* _f_scale_y,
+	float* _f_scale_z,
+	float* _f_trans_x,
+	float* _f_trans_y,
+	float* _f_trans_z,
+	float* _f_rotation_x,
+	float* _f_rotation_y,
+	float* _f_rotation_z)
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	tmp->GetWorldTranform(
+		_f_scale_x,
+		_f_scale_y,
+		_f_scale_z,
+		_f_trans_x,
+		_f_trans_y,
+		_f_trans_z,
+		_f_rotation_x,
+		_f_rotation_y,
+		_f_rotation_z);
+}
+
+
 
 void Scene::SetActiveModelWorldTransParams(float _f_scale_x,
 	float _f_scale_y,

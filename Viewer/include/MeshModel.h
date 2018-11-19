@@ -79,4 +79,15 @@ public:
 		float f_rotation_x, 
 		float f_rotation_y, 
 		float f_rotation_z);
+
+	void GetWorldTranform(
+		float* f_scale_x,
+		float*  f_scale_y,
+		float*  f_scale_z,
+		float*  f_trans_x,
+		float*  f_trans_y,
+		float*  f_trans_z,
+		float* f_rotation_x,
+		float* f_rotation_y,
+		float* f_rotation_z);
 };

@@ -21,6 +21,17 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	RotationMatX = glm::mat4(1.0);
 	RotationMatY = glm::mat4(1.0);
 	RotationMatZ = glm::mat4(1.0);
+
+	f_scale_x = 5.0f;
+	f_scale_y = 5.0f;
+	f_scale_z = 5.0f;
+	f_trans_x = 0.5f;
+	f_trans_y = 0.5f;
+	f_trans_z = 0.5f;
+	f_rotation_x = 0.0f;
+	f_rotation_y = 0.0f;
+	f_rotation_z = 0.0f;
+
 }
 
 MeshModel::~MeshModel()
@@ -186,4 +197,27 @@ void MeshModel::SetWorldTranform(
 	f_rotation_x = _f_rotation_x;
 	f_rotation_y = _f_rotation_y;
 	f_rotation_z = _f_rotation_z;
+}
+
+
+void MeshModel::GetWorldTranform(
+	float* _f_scale_x,
+	float* _f_scale_y,
+	float* _f_scale_z,
+	float* _f_trans_x,
+	float* _f_trans_y,
+	float* _f_trans_z,
+	float* _f_rotation_x,
+	float* _f_rotation_y,
+	float* _f_rotation_z)
+{
+	*_f_scale_x = f_scale_x;
+	*_f_scale_y = f_scale_y;
+	*_f_scale_z = f_scale_z;
+	*_f_trans_x = f_trans_x;
+	*_f_trans_y = f_trans_y;
+	*_f_trans_z = f_trans_z;
+	*_f_rotation_x = f_rotation_x;
+	*_f_rotation_y = f_rotation_y;
+	*_f_rotation_z = f_rotation_z;
 }

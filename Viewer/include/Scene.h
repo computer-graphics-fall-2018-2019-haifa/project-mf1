@@ -47,6 +47,16 @@ public:
 		float _f_rotation_x,
 		float _f_rotation_y,
 		float _f_rotation_z);
+	void Scene::GetWorldTranform(float* _f_scale_x,
+		float* _f_scale_y,
+		float* _f_scale_z,
+		float* _f_trans_x,
+		float* _f_trans_y,
+		float* _f_trans_z,
+		float* _f_rotation_x,
+		float* _f_rotation_y,
+		float* _f_rotation_z);
+
 	Face GetActiveModelFace(int index);
 	std::vector<glm::vec3> GetActiveModelVerticies();
 

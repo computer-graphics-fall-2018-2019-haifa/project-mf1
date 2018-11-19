@@ -55,7 +55,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		{
 			items[i] = const_cast<char*>(modelNames[i].c_str());
 		}
-		static int item_current = 0;
+		static int item_current = scene.GetActiveModelIndex();
 		ImGui::Combo("combo", &item_current, items, num_models);
 		scene.SetActiveModelIndex(item_current);
 
@@ -68,35 +68,42 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::Text("");
 		ImGui::Text("Model");
 
-		static float f_scale_all = 5.0f;
-		static float f_scale_x = 5.0f;
-		static float f_scale_y = 5.0f;
-		static float f_scale_z = 5.0f;
-		if (ImGui::SliderFloat("scale all", &f_scale_all, 0.001f, 100.0f))
-		{
-			f_scale_x = f_scale_all;
-			f_scale_y = f_scale_all;
-			f_scale_z = f_scale_all;
-		}
-		else
+		float f_scale_x;
+		float f_scale_y;
+		float f_scale_z;
+		float f_trans_x;
+		float f_trans_y;
+		float f_trans_z;
+		float f_rotation_x;
+		float f_rotation_y;
+		float f_rotation_z;
+
+		 scene.GetWorldTranform(
+			 &f_scale_x,
+			 &f_scale_y,
+			 &f_scale_z,
+			 &f_trans_x,
+			 &f_trans_y,
+			 &f_trans_z,
+			 &f_rotation_x,
+			 &f_rotation_y,
+			 &f_rotation_z
+		 );
+
+		
+		
 		{
 			ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
 			ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
 			ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
 		}
 
-		static float f_trans_x = 0.5f;
 		ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);
-		static float f_trans_y = 0.5f;
 		ImGui::SliderFloat("transY", &f_trans_y, -1.0f, 1.0f);
-		static float f_trans_z = 0.5f;
 		ImGui::SliderFloat("transZ", &f_trans_z, -1.0f,1.0f);
 
-		static float f_rotation_x = 0.0f;
 		ImGui::SliderFloat("rotation x", &f_rotation_x, -360.0f,360.0f);
-		static float f_rotation_y = 0.0f;
 		ImGui::SliderFloat("rotation y", &f_rotation_y, -360.0f, 360.0f);
-		static float f_rotation_z = 0.0f;
 		ImGui::SliderFloat("rotation z", &f_rotation_z, -360.0f, 360.0f);
 
 
