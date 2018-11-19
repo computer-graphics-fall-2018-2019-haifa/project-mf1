@@ -41,111 +41,117 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 
-		
+
 		// Select active model using gui
 		int num_models = scene.GetModelCount();
-		std::vector<std::string> modelNames;
-		for (int i=0; i< num_models; i++)
+		if (num_models > 0)
 		{
-			std::string modelName = scene.GetModelName(i);
-			modelNames.push_back(modelName);
+			std::vector<std::string> modelNames;
+			for (int i = 0; i < num_models; i++)
+			{
+				std::string modelName = scene.GetModelName(i);
+				modelNames.push_back(modelName);
+			}
+			char** items = new char*[num_models];
+			for (int i = 0; i < num_models; i++)
+			{
+				items[i] = const_cast<char*>(modelNames[i].c_str());
+			}
+			static int item_current = scene.GetActiveModelIndex();
+			ImGui::Combo("combo", &item_current, items, num_models);
+			scene.SetActiveModelIndex(item_current);
+
+			//std::string modelName = scene.GetActiveModelName();
+			//ImGui::Text("Model name:"); ImGui::SameLine();
+			//ImGui::Text(const_cast<char*>(modelName.c_str()));
+
+
+			// Model sliders: scale, translate, rotate
+			ImGui::Text("");
+			ImGui::Text("Model");
+
+			float f_scale_x;
+			float f_scale_y;
+			float f_scale_z;
+			float f_trans_x;
+			float f_trans_y;
+			float f_trans_z;
+			float f_rotation_x;
+			float f_rotation_y;
+			float f_rotation_z;
+
+			scene.GetWorldTranform(
+				&f_scale_x,
+				&f_scale_y,
+				&f_scale_z,
+				&f_trans_x,
+				&f_trans_y,
+				&f_trans_z,
+				&f_rotation_x,
+				&f_rotation_y,
+				&f_rotation_z
+			);
+
+
+
+			{
+				ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
+				ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
+				ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
+			}
+
+			ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);
+			ImGui::SliderFloat("transY", &f_trans_y, -1.0f, 1.0f);
+			ImGui::SliderFloat("transZ", &f_trans_z, -1.0f, 1.0f);
+
+			ImGui::SliderFloat("rotation x", &f_rotation_x, -360.0f, 360.0f);
+			ImGui::SliderFloat("rotation y", &f_rotation_y, -360.0f, 360.0f);
+			ImGui::SliderFloat("rotation z", &f_rotation_z, -360.0f, 360.0f);
+
+
+			scene.SetActiveModelWorldTransParams(f_scale_x, f_scale_y, f_scale_z, f_trans_x, f_trans_y, f_trans_z, f_rotation_x, f_rotation_y, f_rotation_z);
+
+
+			// Camera sliders: perspective/ orthographic, eye, at, up
+			ImGui::Text("");
+			ImGui::Text("Camera");
+
+			static int active_axes = 1;
+			if (ImGui::RadioButton("Perspective", &active_axes, 0))
+			{
+				scene.is_orth = false;
+			}
+			ImGui::SameLine();
+			if (ImGui::RadioButton("Orthographic", &active_axes, 1))
+			{
+				scene.is_orth = true;
+			}
+
+			static float f_eye_x = 0.0f;
+			ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);
+			static float f_eye_y = 0.0f;
+			ImGui::SliderFloat("eye y", &f_eye_y, -100.0f, 100.0f);
+			static float f_eye_z = 0.0f;
+			ImGui::SliderFloat("eye z", &f_eye_z, -100.0f, 100.0f);
+
+			static float f_at_x = 0.0f;
+			ImGui::SliderFloat("at x", &f_at_x, -100.0f, 100.0f);
+			static float f_at_y = 0.0f;
+			ImGui::SliderFloat("at y", &f_at_y, -100.0f, 100.0f);
+			static float f_at_z = 0.0f;
+			ImGui::SliderFloat("at z", &f_at_z, -100.0f, 100.0f);
+
+			static float f_up_x = 0.0f;
+			ImGui::SliderFloat("up x", &f_up_x, -100.0f, 100.0f);
+			static float f_up_y = 0.0f;
+			ImGui::SliderFloat("up y", &f_up_y, -100.0f, 100.0f);
+			static float f_up_z = 0.0f;
+			ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
 		}
-		char** items = new char*[num_models];
-		for (int i = 0; i < num_models; i++)
+		else
 		{
-			items[i] = const_cast<char*>(modelNames[i].c_str());
+			ImGui::Text("Please load model to start: File->Load Model");
 		}
-		static int item_current = scene.GetActiveModelIndex();
-		ImGui::Combo("combo", &item_current, items, num_models);
-		scene.SetActiveModelIndex(item_current);
-
-		//std::string modelName = scene.GetActiveModelName();
-		//ImGui::Text("Model name:"); ImGui::SameLine();
-		//ImGui::Text(const_cast<char*>(modelName.c_str()));
-		
-		
-		// Model sliders: scale, translate, rotate
-		ImGui::Text("");
-		ImGui::Text("Model");
-
-		float f_scale_x;
-		float f_scale_y;
-		float f_scale_z;
-		float f_trans_x;
-		float f_trans_y;
-		float f_trans_z;
-		float f_rotation_x;
-		float f_rotation_y;
-		float f_rotation_z;
-
-		 scene.GetWorldTranform(
-			 &f_scale_x,
-			 &f_scale_y,
-			 &f_scale_z,
-			 &f_trans_x,
-			 &f_trans_y,
-			 &f_trans_z,
-			 &f_rotation_x,
-			 &f_rotation_y,
-			 &f_rotation_z
-		 );
-
-		
-		
-		{
-			ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
-			ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
-			ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
-		}
-
-		ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);
-		ImGui::SliderFloat("transY", &f_trans_y, -1.0f, 1.0f);
-		ImGui::SliderFloat("transZ", &f_trans_z, -1.0f,1.0f);
-
-		ImGui::SliderFloat("rotation x", &f_rotation_x, -360.0f,360.0f);
-		ImGui::SliderFloat("rotation y", &f_rotation_y, -360.0f, 360.0f);
-		ImGui::SliderFloat("rotation z", &f_rotation_z, -360.0f, 360.0f);
-
-
-		scene.SetActiveModelWorldTransParams(f_scale_x, f_scale_y, f_scale_z, f_trans_x, f_trans_y, f_trans_z, f_rotation_x, f_rotation_y, f_rotation_z);
-		
-
-		// Camera sliders: perspective/ orthographic, eye, at, up
-		ImGui::Text("");
-		ImGui::Text("Camera");
-
-		static int active_axes = 1;
-		if (ImGui::RadioButton("Perspective", &active_axes,0)) 
-		{ 
-			scene.is_orth = false; 
-		} 
-		ImGui::SameLine();
-		if (ImGui::RadioButton("Orthographic", &active_axes ,1)) 
-		{ 
-			scene.is_orth = true; 
-		}
-	
-		static float f_eye_x = 0.0f;
-		ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);
-		static float f_eye_y = 0.0f;
-		ImGui::SliderFloat("eye y", &f_eye_y, -100.0f, 100.0f);
-		static float f_eye_z = 0.0f;
-		ImGui::SliderFloat("eye z", &f_eye_z, -100.0f, 100.0f);
-
-		static float f_at_x = 0.0f;
-		ImGui::SliderFloat("at x", &f_at_x, -100.0f, 100.0f);
-		static float f_at_y = 0.0f;
-		ImGui::SliderFloat("at y", &f_at_y, -100.0f, 100.0f);
-		static float f_at_z = 0.0f;
-		ImGui::SliderFloat("at z", &f_at_z, -100.0f, 100.0f);
-
-		static float f_up_x = 0.0f;
-		ImGui::SliderFloat("up x", &f_up_x, -100.0f, 100.0f);
-		static float f_up_y = 0.0f;
-		ImGui::SliderFloat("up y", &f_up_y, -100.0f, 100.0f);
-		static float f_up_z = 0.0f;
-		ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
-
 		
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
