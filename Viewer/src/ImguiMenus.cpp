@@ -80,19 +80,9 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static float f_rotation_z = 0.0f;
 		ImGui::SliderFloat("rotation z", &f_rotation_z, -360.0f, 360.0f);
 
-		scene.scaleX = f_scale_x;
-		scene.scaleY = f_scale_y;
-		scene.scaleZ = f_scale_z;
 
-		scene.translationX = f_trans_x;
-		scene.translationY = f_trans_y;
-		scene.translationZ = f_trans_z;
-
-		scene.rotationAngle_x = f_rotation_x;
-		scene.rotationAngle_y = f_rotation_y;
-		scene.rotationAngle_z = f_rotation_z;
-
-
+		scene.SetActiveModelWorldTransParams(f_scale_x, f_scale_y, f_scale_z, f_trans_x, f_trans_y, f_trans_z, f_rotation_x, f_rotation_y, f_rotation_z);
+		
 
 		// Camera sliders: perspective/ orthographic, eye, at, up
 		ImGui::Text("");

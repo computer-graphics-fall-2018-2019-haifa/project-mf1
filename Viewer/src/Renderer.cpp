@@ -216,25 +216,16 @@ std::vector<glm::vec4> Renderer::TransformVertecies(std::vector<glm::vec3> curr_
 
 
 
-// Apply gui input on current model
-void SetWorldTransMat(Scene& scene, MeshModel& curr_model)
-{
-	curr_model.SetTranslationMat(scene.translationX, scene.translationY, scene.translationZ);
-	curr_model.SetScaleMat(scene.scaleX, scene.scaleY, scene.scaleZ);
-	curr_model.SetRotationMatX(scene.rotationAngle_x);
-	curr_model.SetRotationMatY(scene.rotationAngle_y);
-	curr_model.SetRotationMatZ(scene.rotationAngle_z);
-}
 
 
 // Get all world transformed matricies and calc them together
-glm::mat4x4 getScenceTransMat(MeshModel curr_model)
+glm::mat4x4 getScenceTransMat(Scene& scene)
 {
-	glm::mat4x4 trans_mat = curr_model.GetTranslationMat();
-	glm::mat4x4 scale_mat = curr_model.GetScaleMat();
-	glm::mat4x4 rot_mat_x = curr_model.GetRotationMatX();
-	glm::mat4x4 rot_mat_y = curr_model.GetRotationMatY();
-	glm::mat4x4 rot_mat_z = curr_model.GetRotationMatZ();
+	glm::mat4x4 trans_mat = scene.GetActiveModelTransMat();
+	glm::mat4x4 scale_mat = scene.GetActiveModelScaleMat();
+	glm::mat4x4 rot_mat_x = scene.GetActiveModelRotationMatX();
+	glm::mat4x4 rot_mat_y = scene.GetActiveModelRotationMatY();
+	glm::mat4x4 rot_mat_z = scene.GetActiveModelRotationMatZ();
 
 	glm::mat4x4 res_mat = trans_mat  * rot_mat_x * rot_mat_y * rot_mat_z* scale_mat;
 
@@ -280,13 +271,12 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 	int num_models = scene.GetModelCount();
 	for (int x = 0; x < num_models; x++)
 	{
-		MeshModel curr_model = scene.GetModel(x);
-		int num_faces = curr_model.GetFacesCount();
+		int num_faces = scene.GetActiveModelNumFaces();
 		for (int y = 0; y < num_faces; y++)
 		{
 			// Handle world Trans mat 
-			SetWorldTransMat(scene, curr_model);
-			glm::mat4x4 curr_tran = getScenceTransMat(curr_model);
+			scene.SetWorldTranToActiveModel();
+			glm::mat4x4 curr_tran = getScenceTransMat(scene);
 
 
 			// Handle view camera
@@ -311,8 +301,8 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 
 			// Apply on all verticies
-			Face curr_face = curr_model.GetFace(y);
-			std::vector<glm::vec3> curr_vetices = curr_model.GetVertices();
+			Face curr_face = scene.GetActiveModelFace(y);
+			std::vector<glm::vec3> curr_vetices = scene.GetActiveModelVerticies();
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 			// Draw the faces lines

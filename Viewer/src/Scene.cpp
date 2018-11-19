@@ -25,12 +25,23 @@ const int Scene::GetModelCount() const
 }
 
 
-
-const MeshModel Scene::GetModel(int model_index) const
+const int Scene::GetActiveModelNumFaces() const
 {
-	MeshModel tmp = *models[model_index];
-	return tmp;
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetFacesCount();
 }
+
+ void Scene::SetWorldTranToActiveModel()
+ {
+	 std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+
+	 tmp->SetTranslationMat();
+	 tmp->SetScaleMat();
+	 tmp->SetRotationMatX();
+	 tmp->SetRotationMatY();
+	 tmp->SetRotationMatZ();
+ }
+
 
 
 
@@ -47,7 +58,7 @@ const int Scene::GetCameraCount() const
 void Scene::SetActiveCameraIndex(int index)
 {
 	// implementation suggestion...
-	if (index >= 0 && index < cameras.size())
+	if (index >= 0 && index < int(cameras.size()))
 	{
 		activeCameraIndex = index;
 	}
@@ -61,7 +72,7 @@ const int Scene::GetActiveCameraIndex() const
 void Scene::SetActiveModelIndex(int index)
 {
 	// implementation suggestion...
-	if (index >= 0 && index < models.size())
+	if (index >= 0 && index < int(models.size()))
 	{
 		activeModelIndex = index;
 	}
@@ -73,10 +84,68 @@ const int Scene::GetActiveModelIndex() const
 }
 
 
+
+glm::mat4x4 Scene::GetActiveModelTransMat()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetTranslationMat();
+}
+
+glm::mat4x4 Scene::GetActiveModelScaleMat()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetScaleMat();
+}
+
+glm::mat4x4 Scene::GetActiveModelRotationMatX()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetRotationMatX();
+}
+
+glm::mat4x4 Scene::GetActiveModelRotationMatY()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetRotationMatY();
+}
+
+glm::mat4x4 Scene::GetActiveModelRotationMatZ()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetRotationMatZ();
+}
+
+
+
+void Scene::SetActiveModelWorldTransParams(float _f_scale_x,
+	float _f_scale_y,
+	float _f_scale_z,
+	float _f_trans_x,
+	float _f_trans_y,
+	float _f_trans_z,
+	float _f_rotation_x,
+	float _f_rotation_y,
+	float _f_rotation_z)
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+
+	tmp->SetWorldTranform(
+		_f_scale_x,
+		_f_scale_y,
+		_f_scale_z,
+		_f_trans_x,
+		_f_trans_y,
+		_f_trans_z,
+		_f_rotation_x,
+		_f_rotation_y,
+		_f_rotation_z);
+}
+
 std::string Scene::GetActiveModelName()
 {
-	MeshModel tmp = *models[activeModelIndex];
-	return tmp.GetModelName();
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+
+	return tmp->GetModelName();
 }
 
 void Scene::SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
@@ -114,5 +183,18 @@ glm::mat4x4 Scene::GetActiveCameraProjection()
 	return  cameras[activeCameraIndex].GetCameraProjection();
 }
 
+
+Face Scene::GetActiveModelFace(int index)
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetFace(index);
+}
+
+
+std::vector<glm::vec3> Scene::GetActiveModelVerticies()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetVertices();
+}
 
 

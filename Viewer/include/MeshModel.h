@@ -28,6 +28,18 @@ private:
 	glm::mat4x4 RotationMatZ;
 
 
+	// world trans params
+	float f_scale_x;
+	float f_scale_y;
+	float f_scale_z;
+	float f_trans_x;
+	float f_trans_y;
+	float f_trans_z;
+	float f_rotation_x;
+	float f_rotation_y;
+	float f_rotation_z;
+
+
 public:
 	MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& normals, const std::string& modelName = "");
 	virtual ~MeshModel();
@@ -45,14 +57,26 @@ public:
 
 
 	// World Transform matricies
-	void SetTranslationMat(float x, float y, float z);
+	void SetTranslationMat();
 	const glm::mat4x4 GetTranslationMat() const;
-	void SetScaleMat(float x, float y, float z);
+	void SetScaleMat();
 	const glm::mat4x4 GetScaleMat() const;
-	void SetRotationMatX(float angle);
+	void SetRotationMatX();
 	const glm::mat4x4 GetRotationMatX() const;
-	void SetRotationMatY(float angle);
+	void SetRotationMatY();
 	const glm::mat4x4 GetRotationMatY() const;
-	void SetRotationMatZ(float angle);
+	void SetRotationMatZ();
 	const glm::mat4x4 GetRotationMatZ();
+
+
+	void SetWorldTranform(
+		float f_scale_x, 
+		float  f_scale_y, 
+		float  f_scale_z, 
+		float  f_trans_x, 
+		float  f_trans_y, 
+		float  f_trans_z, 
+		float f_rotation_x, 
+		float f_rotation_y, 
+		float f_rotation_z);
 };

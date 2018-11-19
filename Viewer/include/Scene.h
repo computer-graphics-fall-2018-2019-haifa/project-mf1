@@ -26,7 +26,33 @@ public:
 
 	void AddModel(const std::shared_ptr<MeshModel>& model);
 	const int GetModelCount() const;
-	const MeshModel GetModel(int model_index) const;
+	const int GetActiveModelNumFaces() const;
+
+	void SetActiveModelIndex(int index);
+	const int GetActiveModelIndex() const;
+	std::string GetActiveModelName();
+	void SetWorldTranToActiveModel();
+	glm::mat4x4 GetActiveModelTransMat();
+	glm::mat4x4 GetActiveModelScaleMat();
+	glm::mat4x4 GetActiveModelRotationMatX();
+	glm::mat4x4 GetActiveModelRotationMatY();
+	glm::mat4x4 GetActiveModelRotationMatZ();
+	void SetActiveModelWorldTransParams(float _f_scale_x,
+		float _f_scale_y,
+		float _f_scale_z,
+		float _f_trans_x,
+		float _f_trans_y,
+		float _f_trans_z,
+		float _f_rotation_x,
+		float _f_rotation_y,
+		float _f_rotation_z);
+	Face GetActiveModelFace(int index);
+	std::vector<glm::vec3> GetActiveModelVerticies();
+
+
+
+
+
 
 	void AddCamera(const Camera& camera);
 	const int GetCameraCount() const;
@@ -34,9 +60,7 @@ public:
 	void SetActiveCameraIndex(int index);
 	const int GetActiveCameraIndex() const;
 
-	void SetActiveModelIndex(int index);
-	const int GetActiveModelIndex() const;
-	std::string GetActiveModelName();
+	
 
 
 	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);

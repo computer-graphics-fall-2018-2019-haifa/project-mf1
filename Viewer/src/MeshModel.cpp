@@ -50,6 +50,8 @@ const std::vector<glm::vec3> MeshModel::GetVertices() const
 }
 
 
+
+
 const Face MeshModel::GetFace(int index) const
 {
 	return faces[index];
@@ -77,13 +79,13 @@ const int MeshModel::GetVerticesCount() const
 
 
 
-void MeshModel::SetTranslationMat(float x, float y, float z)
+void MeshModel::SetTranslationMat()
 {
 	glm::mat4x4 _translationMat(1.0f);
 
-	_translationMat[0][3] = x;
-	_translationMat[1][3] = y;
-	_translationMat[2][3] = z;
+	_translationMat[0][3] = f_trans_x;
+	_translationMat[1][3] = f_trans_y;
+	_translationMat[2][3] = f_trans_z;
 
 	translationMat = glm::transpose(_translationMat);
 	//translationMat = _translationMat;
@@ -99,11 +101,11 @@ const glm::mat4x4 MeshModel::GetTranslationMat() const
 
 
 
-void MeshModel::SetScaleMat(float x, float y, float z)
+void MeshModel::SetScaleMat()
 {
-	scaleMat[0][0] = x;
-	scaleMat[1][1] = y;
-	scaleMat[2][2] = z;
+	scaleMat[0][0] = f_scale_x;
+	scaleMat[1][1] = f_scale_y;
+	scaleMat[2][2] = f_scale_z;
 	return;
 }
 const glm::mat4x4 MeshModel::GetScaleMat() const
@@ -111,10 +113,10 @@ const glm::mat4x4 MeshModel::GetScaleMat() const
 	return scaleMat;
 }
 
-void MeshModel::SetRotationMatX(float angle)
+void MeshModel::SetRotationMatX()
 {
-	float sin_angle = float(sin(angle* M_PI / 180.0f));
-	float cos_angle = float(cos(angle* M_PI / 180.0f));
+	float sin_angle = float(sin(f_rotation_x* M_PI / 180.0f));
+	float cos_angle = float(cos(f_rotation_x* M_PI / 180.0f));
 
 	RotationMatX[1][1] = cos_angle;
 	RotationMatX[1][2] = (-1.0f)*sin_angle;
@@ -128,10 +130,10 @@ const glm::mat4x4 MeshModel::GetRotationMatX() const
 	return RotationMatX;
 }
 
-void MeshModel::SetRotationMatY(float angle)
+void MeshModel::SetRotationMatY()
 {
-	float sin_angle = float(sin(angle* M_PI / 180.0));
-	float cos_angle = float(cos(angle* M_PI / 180.0));
+	float sin_angle = float(sin(f_rotation_y* M_PI / 180.0));
+	float cos_angle = float(cos(f_rotation_y* M_PI / 180.0));
 
 	RotationMatY[0][0] = cos_angle;
 	RotationMatY[0][2] = sin_angle;
@@ -145,10 +147,10 @@ const glm::mat4x4 MeshModel::GetRotationMatY() const
 {
 	return RotationMatY;
 }
-void MeshModel::SetRotationMatZ(float angle)
+void MeshModel::SetRotationMatZ()
 {
-	float sin_angle = float(sin(angle * M_PI / 180.0));
-	float cos_angle = float(cos(angle * M_PI / 180.0));
+	float sin_angle = float(sin(f_rotation_z * M_PI / 180.0));
+	float cos_angle = float(cos(f_rotation_z * M_PI / 180.0));
 
 	RotationMatZ[0][0] = cos_angle;
 	RotationMatZ[0][1] = (-1.0f)*sin_angle;
@@ -161,4 +163,27 @@ void MeshModel::SetRotationMatZ(float angle)
 const glm::mat4x4 MeshModel::GetRotationMatZ()
 {
 	return RotationMatZ;
+}
+
+
+void MeshModel::SetWorldTranform(
+	float _f_scale_x,
+	float _f_scale_y,
+	float _f_scale_z,
+	float _f_trans_x,
+	float _f_trans_y,
+	float _f_trans_z,
+	float _f_rotation_x,
+	float _f_rotation_y,
+	float _f_rotation_z)
+{
+	f_scale_x = _f_scale_x;
+	f_scale_y = _f_scale_y;
+	f_scale_z = _f_scale_z;
+	f_trans_x = _f_trans_x;
+	f_trans_y = _f_trans_y;
+	f_trans_z = _f_trans_z;
+	f_rotation_x = _f_rotation_x;
+	f_rotation_y = _f_rotation_y;
+	f_rotation_z = _f_rotation_z;
 }
