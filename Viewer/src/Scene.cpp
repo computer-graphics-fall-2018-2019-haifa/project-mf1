@@ -141,6 +141,15 @@ void Scene::SetActiveModelWorldTransParams(float _f_scale_x,
 		_f_rotation_z);
 }
 
+
+std::string Scene::GetModelName(int index)
+{
+	std::shared_ptr<MeshModel> tmp = models[index];
+
+	return tmp->GetModelName();
+}
+
+
 std::string Scene::GetActiveModelName()
 {
 	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];

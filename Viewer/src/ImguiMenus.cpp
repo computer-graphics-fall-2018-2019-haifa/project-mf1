@@ -40,9 +40,28 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		ImGui::Begin("click me");                          // Create a window called "Hello, world!" and append into it.
 
 
-		std::string modelName = scene.GetActiveModelName();
-		ImGui::Text("Model name:"); ImGui::SameLine();
-		ImGui::Text(const_cast<char*>(modelName.c_str()));
+
+		
+		// Select active model using gui
+		int num_models = scene.GetModelCount();
+		std::vector<std::string> modelNames;
+		for (int i=0; i< num_models; i++)
+		{
+			std::string modelName = scene.GetModelName(i);
+			modelNames.push_back(modelName);
+		}
+		char** items = new char*[num_models];
+		for (int i = 0; i < num_models; i++)
+		{
+			items[i] = const_cast<char*>(modelNames[i].c_str());
+		}
+		static int item_current = 0;
+		ImGui::Combo("combo", &item_current, items, num_models);
+		scene.SetActiveModelIndex(item_current);
+
+		//std::string modelName = scene.GetActiveModelName();
+		//ImGui::Text("Model name:"); ImGui::SameLine();
+		//ImGui::Text(const_cast<char*>(modelName.c_str()));
 		
 		
 		// Model sliders: scale, translate, rotate

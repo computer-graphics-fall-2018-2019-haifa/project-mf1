@@ -31,6 +31,7 @@ public:
 	void SetActiveModelIndex(int index);
 	const int GetActiveModelIndex() const;
 	std::string GetActiveModelName();
+	std::string GetModelName(int index);
 	void SetWorldTranToActiveModel();
 	glm::mat4x4 GetActiveModelTransMat();
 	glm::mat4x4 GetActiveModelScaleMat();

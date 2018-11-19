@@ -271,6 +271,9 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 	int num_models = scene.GetModelCount();
 	for (int x = 0; x < num_models; x++)
 	{
+		// iterate all models in scene
+		scene.SetActiveModelIndex(x);
+
 		int num_faces = scene.GetActiveModelNumFaces();
 		for (int y = 0; y < num_faces; y++)
 		{
