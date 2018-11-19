@@ -76,19 +76,6 @@ public:
 	glm::mat4x4 GetActiveCameraProjection();
 
 
-
-	float scaleX;
-	float scaleY;
-	float scaleZ;
-
-	float translationX;
-	float translationY;
-	float translationZ;
-
-	float rotationAngle_x;
-	float rotationAngle_y;
-	float rotationAngle_z;
-
 	float cam_eye_x;
 	float cam_eye_y;
 	float cam_eye_z;

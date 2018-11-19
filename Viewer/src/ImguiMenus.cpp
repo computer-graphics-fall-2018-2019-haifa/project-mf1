@@ -120,15 +120,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static float f_up_z = 0.0f;
 		ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
 
-		scene.cam_eye_x = f_eye_x;
-		scene.cam_eye_y = f_eye_x;
-		scene.cam_eye_z = f_eye_x;
-		scene.cam_at_x = f_at_x;
-		scene.cam_at_y = f_at_x;
-		scene.cam_at_z = f_at_x;
-		scene.cam_up_x = f_up_x;
-		scene.cam_up_y = f_up_x;
-		scene.cam_up_z = f_up_x;
+		
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::End();
