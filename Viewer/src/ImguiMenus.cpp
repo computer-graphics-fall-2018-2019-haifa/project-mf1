@@ -127,26 +127,18 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 				scene.is_orth = true;
 			}
 
-			static float f_eye_x = 0.0f;
-			ImGui::SliderFloat("eye x", &f_eye_x, -100.0f, 100.0f);
-			static float f_eye_y = 0.0f;
-			ImGui::SliderFloat("eye y", &f_eye_y, -100.0f, 100.0f);
-			static float f_eye_z = 0.0f;
-			ImGui::SliderFloat("eye z", &f_eye_z, -100.0f, 100.0f);
+			static float f_camera_trans_x = 0.0f;
+			ImGui::SliderFloat("eye x", &f_camera_trans_x, -100.0f, 100.0f);
+			static float f_camera_trans_y = 0.0f;
+			ImGui::SliderFloat("eye y", &f_camera_trans_y, -100.0f, 100.0f);
+			static float f_camera_trans_z = 0.0f;
+			ImGui::SliderFloat("eye z", &f_camera_trans_z, -100.0f, 100.0f);
 
-			static float f_at_x = 0.0f;
-			ImGui::SliderFloat("at x", &f_at_x, -100.0f, 100.0f);
-			static float f_at_y = 0.0f;
-			ImGui::SliderFloat("at y", &f_at_y, -100.0f, 100.0f);
-			static float f_at_z = 0.0f;
-			ImGui::SliderFloat("at z", &f_at_z, -100.0f, 100.0f);
 
-			static float f_up_x = 0.0f;
-			ImGui::SliderFloat("up x", &f_up_x, -100.0f, 100.0f);
-			static float f_up_y = 0.0f;
-			ImGui::SliderFloat("up y", &f_up_y, -100.0f, 100.0f);
-			static float f_up_z = 0.0f;
-			ImGui::SliderFloat("up z", &f_up_z, -100.0f, 100.0f);
+			scene.SetActiveCameraViewParams(f_camera_trans_x, 
+				f_camera_trans_y, 
+				f_camera_trans_z);
+
 		}
 		else
 		{

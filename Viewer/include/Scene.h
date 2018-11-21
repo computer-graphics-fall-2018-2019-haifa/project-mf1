@@ -71,7 +71,9 @@ public:
 	void SetActiveCameraIndex(int index);
 	const int GetActiveCameraIndex() const;
 
-	
+	void SetActiveCameraViewParams(float f_camera_trans_x,
+		float f_camera_trans_y,
+		float f_camera_trans_z);
 
 
 	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);

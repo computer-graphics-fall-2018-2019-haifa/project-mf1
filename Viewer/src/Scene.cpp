@@ -69,6 +69,19 @@ const int Scene::GetActiveCameraIndex() const
 	return activeCameraIndex;
 }
 
+
+
+void Scene::SetActiveCameraViewParams(float f_camera_trans_x,
+	float f_camera_trans_y,
+	float f_camera_trans_z)
+{
+	cameras[activeCameraIndex].SetActiveCameraViewParams(f_camera_trans_x,
+		f_camera_trans_y,
+		f_camera_trans_z);
+}
+
+
+
 void Scene::SetActiveModelIndex(int index)
 {
 	// implementation suggestion...

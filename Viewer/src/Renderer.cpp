@@ -284,11 +284,11 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 			// Handle view camera
 			SetCameraViewFromGui(scene);
-			//glm::mat4x4 viewCamera(1.0f);
-			//if (!is_2d_debug)
-			//{
+			glm::mat4x4 viewCamera(1.0f);
+			if (!is_2d_debug)
+			{
 				glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
-			//}
+			}
 
 			// Handle projection
 			SetCameraProjection(scene);

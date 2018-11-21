@@ -9,12 +9,49 @@ Camera::Camera(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up) :
 {
 	SetCameraLookAt(eye, at, up);
 	SetOrthographicProjection((-500.0f),500.0f, (-200.0f),200.0f,10.0f,150.0f);
+
+
+	// Init identity matricies
+	translationMat = glm::mat4(1.0);
+	scaleMat = glm::mat4(1.0);
+	RotationMatX = glm::mat4(1.0);
+	RotationMatY = glm::mat4(1.0);
+	RotationMatZ = glm::mat4(1.0);
+
+	f_camera_trans_x = 0;
+	f_camera_trans_y = 0;
+	f_camera_trans_z = 0;
 }
 
 Camera::~Camera()
 {
 }
 
+
+void Camera::SetActiveCameraViewParams(float _f_camera_trans_x,
+	float _f_camera_trans_y,
+	float _f_camera_trans_z)
+{
+	f_camera_trans_x = _f_camera_trans_x;
+	f_camera_trans_y = _f_camera_trans_y;
+	f_camera_trans_z = _f_camera_trans_z;
+}
+
+
+
+void Camera::SetTranslationMat()
+{
+	glm::mat4x4 _translationMat(1.0f);
+
+	_translationMat[0][3] = f_camera_trans_x;
+	_translationMat[1][3] = f_camera_trans_y;
+	_translationMat[2][3] = f_camera_trans_z;
+
+	translationMat = glm::transpose(_translationMat);
+	//translationMat = _translationMat;
+
+	return;
+}
 
 
 void Camera::SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up)
@@ -28,6 +65,7 @@ void Camera::SetCameraLookAt(const glm::vec3& eye, const glm::vec3& at, const gl
 	glm::mat4 c = mat4(u, v, n, t);
 	viewTransformation = c * Translate(-eye);
 	*/
+
 
 
 	glm::vec3 z = glm::normalize(eye - at);
