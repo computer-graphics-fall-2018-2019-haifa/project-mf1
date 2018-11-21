@@ -205,7 +205,7 @@ void Scene::SetCameraProjection(const float left,
 }
 
 
-glm::mat4x4 Scene::GetActiveCamera()
+glm::mat4x4 Scene::GetActiveCameraTransformation()
 {
 	return cameras[activeCameraIndex].GetViewTransformation();
 }

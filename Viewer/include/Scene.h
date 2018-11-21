@@ -83,7 +83,7 @@ public:
 		const float far);
 
 
-	glm::mat4x4 GetActiveCamera();
+	glm::mat4x4 GetActiveCameraTransformation();
 	glm::mat4x4 GetActiveCameraProjection();
 
 
