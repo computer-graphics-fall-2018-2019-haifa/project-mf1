@@ -139,6 +139,16 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 				f_camera_trans_y, 
 				f_camera_trans_z);
 
+
+
+
+
+			// bound box
+			bool checkbox_bound_box = scene.GetBoundBox();
+			ImGui::Checkbox("Bound box", &checkbox_bound_box);
+			scene.SetBoundBox(checkbox_bound_box);
+
+
 		}
 		else
 		{

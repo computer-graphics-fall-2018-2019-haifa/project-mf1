@@ -24,6 +24,22 @@ const int Scene::GetModelCount() const
 	return (int)models.size();
 }
 
+void Scene::SetBoundBox(bool _is_bound_box)
+{
+	is_bound_box = _is_bound_box;
+}
+
+
+bool Scene::GetBoundBox()
+{
+	return is_bound_box;
+}
+
+
+
+
+
+
 
 const int Scene::GetActiveModelNumFaces() const
 {
@@ -243,5 +259,13 @@ std::vector<glm::vec3> Scene::GetActiveModelVerticies()
 	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
 	return tmp->GetVertices();
 }
+
+/*
+std::vector<glm::vec3, glm::vec3> Scene::GetActiveModelBoundBoxVerticies()
+{
+	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
+	return tmp->GetBoundBoxVerticies();
+}
+*/
 
 

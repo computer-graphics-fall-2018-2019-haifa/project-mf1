@@ -262,6 +262,16 @@ void SetCameraViewFromGui(Scene& scene)
 }
 
 
+
+void DrawBoundBox(std::vector<glm::vec4> curr_vertices)
+{
+	//DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight);
+
+	return;
+}
+
+
+
 // Main function
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
@@ -269,48 +279,67 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 	// Draw all models
 	int num_models = scene.GetModelCount();
+
+	glm::mat4x4 tarns_mat;
 	for (int x = 0; x < num_models; x++)
 	{
 		// iterate all models in scene
 		scene.SetActiveModelIndex(x);
+		
+
+		// Get all verticies of this model
+		std::vector<glm::vec3> curr_vetices = scene.GetActiveModelVerticies();
+
+
+		// Handle world Trans mat 
+		scene.SetWorldTranToActiveModel();
+		glm::mat4x4 world_tran = getScenceTransMat(scene);
+
+
+		// Handle view camera
+		SetCameraViewFromGui(scene);
+		glm::mat4x4 viewCamera(1.0f);
+		if (!is_2d_debug)
+		{
+			glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
+		}
+
+
+		// Handle projection
+		SetCameraProjection(scene);
+		glm::mat4x4 projection(1.0f);
+		if (!is_2d_debug)
+		{
+			glm::mat4x4 projection = scene.GetActiveCameraProjection();
+		}
+
 
 		int num_faces = scene.GetActiveModelNumFaces();
 		for (int y = 0; y < num_faces; y++)
 		{
-			// Handle world Trans mat 
-			scene.SetWorldTranToActiveModel();
-			glm::mat4x4 curr_tran = getScenceTransMat(scene);
-
-
-			// Handle view camera
-			SetCameraViewFromGui(scene);
-			glm::mat4x4 viewCamera(1.0f);
-			if (!is_2d_debug)
-			{
-				glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
-			}
-
-			// Handle projection
-			SetCameraProjection(scene);
-			glm::mat4x4 projection(1.0f);
-			if (!is_2d_debug)
-			{
-				glm::mat4x4 projection = scene.GetActiveCameraProjection();
-			}
-			
-			
 			// Calc all maticies
-			glm::mat4x4 tarns_mat = curr_tran * viewCamera * projection;
+			tarns_mat = world_tran * viewCamera * projection;
 
 
-			// Apply on all verticies
+			// Apply on all faces
 			Face curr_face = scene.GetActiveModelFace(y);
-			std::vector<glm::vec3> curr_vetices = scene.GetActiveModelVerticies();
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 			// Draw the faces lines
 			DrawFace(curr_face, transed_vertices, is_2d_debug);
 		}
+
+
+		// Draw bound box
+		if (scene.GetBoundBox())
+		{
+			//std::vector<glm::vec3, glm::vec3> lines_bound_box = scene.GetActiveModelBoundBoxVerticies();
+			//std::vector<glm::vec3, glm::vec3> lines_bound_box_transed;
+			//DrawBoundBox(lines_bound_box_transed);
+		}
+
+
+		
 	}
 	
 

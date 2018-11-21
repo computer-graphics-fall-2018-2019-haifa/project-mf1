@@ -21,6 +21,8 @@ private:
 	int activeModelIndex;
 
 
+	bool is_bound_box;
+
 public:
 	Scene();
 
@@ -59,9 +61,12 @@ public:
 
 	Face GetActiveModelFace(int index);
 	std::vector<glm::vec3> GetActiveModelVerticies();
+	//std::vector<glm::vec3, glm::vec3> GetActiveModelBoundBoxVerticies();
 
 
 
+	void SetBoundBox(bool is_bound_box);
+	bool GetBoundBox();
 
 
 

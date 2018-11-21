@@ -20,6 +20,11 @@ private:
 	std::string modelName;
 
 
+	std::vector<std::pair <glm::vec3, glm::vec3>> lines_bound_box;
+
+
+
+
 	// World Transform matricies
 	glm::mat4x4 translationMat;
 	glm::mat4x4 scaleMat;
@@ -44,6 +49,9 @@ public:
 	MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3>& vertices, const std::vector<glm::vec3>& normals, const std::string& modelName = "");
 	virtual ~MeshModel();
 
+	void CalcBoundBoxVerticies();
+
+
 	const glm::vec4& GetColor() const;
 	void SetColor(const glm::vec4& color);
 
@@ -52,6 +60,8 @@ public:
 	const glm::vec3& GetVertex(int index) const;
 	const int GetVerticesCount() const;
 	const std::vector<glm::vec3> GetVertices() const;
+	const std::vector<glm::vec3> GetBoundBoxVerticies() const;
+
 	const Face GetFace(int index) const;
 	const int GetFacesCount() const;
 

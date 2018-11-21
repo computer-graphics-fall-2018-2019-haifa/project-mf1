@@ -32,10 +32,77 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	f_rotation_y = 0.0f;
 	f_rotation_z = 0.0f;
 
+	CalcBoundBoxVerticies();
+
 }
 
 MeshModel::~MeshModel()
 {
+}
+
+
+
+// find the 8 verticies / 12 lines
+void MeshModel::CalcBoundBoxVerticies()
+{
+	int num_verticies = vertices.size();
+	float min_x = vertices[0].x, min_y = vertices[0].y, min_z= vertices[0].z, max_x = vertices[0].x, max_y = vertices[0].y, max_z = vertices[0].z;
+	for (int i = 0; i < num_verticies; i++)
+	{
+		if (vertices[i].x < min_x)
+		{
+			min_x = vertices[i].x;
+		}
+		if (vertices[i].x > max_x)
+		{
+			max_x = vertices[i].x;
+		}
+
+		if (vertices[i].y < min_y)
+		{
+			min_y = vertices[i].y;
+		}
+		if (vertices[i].y > max_y)
+		{
+			max_y = vertices[i].y;
+		}
+
+		if (vertices[i].z < min_z)
+		{
+			min_z = vertices[i].z;
+		}
+		if (vertices[i].z > max_z)
+		{
+			max_z = vertices[i].z;
+		}
+	}
+
+	// 8 verticies
+	glm::vec3 vertex_1 = glm::vec3(min_x, min_y, min_z);
+	glm::vec3 vertex_2 = glm::vec3(min_x, min_y, max_z);
+	glm::vec3 vertex_3 = glm::vec3(min_x, max_y, min_z);
+	glm::vec3 vertex_4 = glm::vec3(min_x, max_y, max_z);
+	glm::vec3 vertex_5 = glm::vec3(max_x, min_y, min_z);
+	glm::vec3 vertex_6 = glm::vec3(max_x, min_y, max_z);
+	glm::vec3 vertex_7 = glm::vec3(max_x, max_y, min_z);
+	glm::vec3 vertex_8 = glm::vec3(max_x, max_y, max_z);
+
+	
+	// 12 lines
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_5));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_3));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_5));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_5));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_3));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_2, vertex_6));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_2, vertex_4));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_8, vertex_6));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_8, vertex_4));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_2));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_5, vertex_6));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_8));
+
+	
 }
 
 void MeshModel::SetColor(const glm::vec4& color)
@@ -59,6 +126,14 @@ const std::vector<glm::vec3> MeshModel::GetVertices() const
 {
 	return vertices;
 }
+
+/*
+const std::vector<glm::vec3> MeshModel::GetBoundBoxVerticies() const
+{
+	return lines_bound_box;
+}
+*/
+
 
 
 
