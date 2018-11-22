@@ -116,7 +116,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 			ImGui::Text("");
 			ImGui::Text("Camera");
 
-			static int active_axes = 1;
+			static int active_axes = scene.is_orth;
 			if (ImGui::RadioButton("Perspective", &active_axes, 0))
 			{
 				scene.is_orth = false;
@@ -142,11 +142,28 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 
+			// projection params
+			static float f_fovy = 0.0f;
+			ImGui::SliderFloat("fovy", &f_fovy, -100.0f, 100.0f);
+			static float apect_ratio = 0.0f;
+			ImGui::SliderFloat("apect ratio", &apect_ratio, -100.0f, 100.0f);
+			static float f_near = 0.0f;
+			ImGui::SliderFloat("near", &f_near, -100.0f, 100.0f);
+			static float f_far = 0.0f;
+			ImGui::SliderFloat("far", &f_far, -100.0f, 100.0f);
+
+
 
 			// bound box
 			bool checkbox_bound_box = scene.GetBoundBox();
 			ImGui::Checkbox("Bound box", &checkbox_bound_box);
 			scene.SetBoundBox(checkbox_bound_box);
+
+
+
+
+			
+
 
 
 		}
