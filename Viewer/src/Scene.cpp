@@ -260,12 +260,12 @@ std::vector<glm::vec3> Scene::GetActiveModelVerticies()
 	return tmp->GetVertices();
 }
 
-/*
-std::vector<glm::vec3, glm::vec3> Scene::GetActiveModelBoundBoxVerticies()
+
+std::vector<std::pair <glm::vec3, glm::vec3>> Scene::GetActiveModelBoundBoxVerticies()
 {
 	std::shared_ptr<MeshModel> tmp = models[activeModelIndex];
 	return tmp->GetBoundBoxVerticies();
 }
-*/
+
 
 

@@ -61,7 +61,8 @@ public:
 
 	Face GetActiveModelFace(int index);
 	std::vector<glm::vec3> GetActiveModelVerticies();
-	//std::vector<glm::vec3, glm::vec3> GetActiveModelBoundBoxVerticies();
+	std::vector<std::pair <glm::vec3, glm::vec3>> Scene::GetActiveModelBoundBoxVerticies();
+
 
 
 

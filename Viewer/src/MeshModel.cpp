@@ -92,7 +92,6 @@ void MeshModel::CalcBoundBoxVerticies()
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_5));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_3));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_5));
-	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_5));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_3));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_2, vertex_6));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_2, vertex_4));
@@ -100,6 +99,7 @@ void MeshModel::CalcBoundBoxVerticies()
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_8, vertex_4));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_1, vertex_2));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_5, vertex_6));
+	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_3, vertex_4));
 	lines_bound_box.push_back(std::pair <glm::vec3, glm::vec3> (vertex_7, vertex_8));
 
 	
@@ -127,12 +127,13 @@ const std::vector<glm::vec3> MeshModel::GetVertices() const
 	return vertices;
 }
 
-/*
-const std::vector<glm::vec3> MeshModel::GetBoundBoxVerticies() const
+
+
+std::vector<std::pair <glm::vec3, glm::vec3>> MeshModel::GetBoundBoxVerticies()
 {
 	return lines_bound_box;
 }
-*/
+
 
 
 

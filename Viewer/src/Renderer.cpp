@@ -80,7 +80,7 @@ void Renderer::SetViewport(int viewportWidth, int viewportHeight, int viewportX,
 
 
 
-void Renderer::plotLineHigh(int x0, int y0, int x1, int y1)
+void Renderer::plotLineHigh(int x0, int y0, int x1, int y1, const glm::vec3& color)
 {
 	int dx = x1 - x0;
 	int dy = y1 - y0;
@@ -96,7 +96,7 @@ void Renderer::plotLineHigh(int x0, int y0, int x1, int y1)
 
 	while (y <= y1)
 	{
-		putPixel(x, y, glm::vec3(0, 0, 0));
+		putPixel(x, y, color);
 		if (D > 0)
 		{
 			x = x + xi;
@@ -109,7 +109,7 @@ void Renderer::plotLineHigh(int x0, int y0, int x1, int y1)
 
 
 
-void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
+void Renderer::plotLineLow(int x0, int y0, int x1, int y1, const glm::vec3& color)
 {
 	int dx = x1 - x0;
 	int dy = y1 - y0;
@@ -125,7 +125,7 @@ void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
 
 	while (x <= x1)
 	{
-		putPixel(x, y, glm::vec3(0, 0, 0));
+		putPixel(x, y, color);
 		if (D > 0)
 		{
 			y = y + yi;
@@ -138,7 +138,7 @@ void Renderer::plotLineLow(int x0, int y0, int x1, int y1)
 
 
 
-void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float _y1)
+void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float _y1, const glm::vec3& color)
 {
 	int x0 = int(_x0);
 	int y0 = int(_y0);
@@ -150,22 +150,22 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 	{
 		if (x0 > x1)
 		{
-			plotLineLow(x1, y1, x0, y0);
+			plotLineLow(x1, y1, x0, y0, color);
 		}
 		else
 		{
-			plotLineLow(x0, y0, x1, y1);
+			plotLineLow(x0, y0, x1, y1, color);
 		}
 	}
 	else
 	{
 		if (y0 > y1)
 		{
-			plotLineHigh(x1, y1, x0, y0);
+			plotLineHigh(x1, y1, x0, y0, color);
 		}
 		else
 		{
-			plotLineHigh(x0, y0, x1, y1);
+			plotLineHigh(x0, y0, x1, y1, color);
 		}
 	}
 }
@@ -173,6 +173,8 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 
 void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bool is_2d_debug)
 {
+	const glm::vec3 color(1,0,1);
+
 	int vertex_index_0 = curr_face.GetVertexIndex(0);
 	vertex_index_0 -= 1;
 	glm::vec4 curr_vertex_0 = curr_vertices[vertex_index_0];
@@ -186,9 +188,9 @@ void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bo
 	glm::vec4 curr_vertex_2 = curr_vertices[vertex_index_2];
 
 	// The relevant data is vertex.x and vertex.y
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight);
-	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight);
-	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight, color);
+	DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight, color);
+	DrawLineBresenhamAlgorithm(curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight, curr_vertex_2[0] * viewportWidth, curr_vertex_2[1] * viewportHeight, color);
 }
 
 
@@ -263,14 +265,50 @@ void SetCameraViewFromGui(Scene& scene)
 
 
 
-void DrawBoundBox(std::vector<glm::vec4> curr_vertices)
+void Renderer::DrawBoundBox(std::vector<std::pair <glm::vec3, glm::vec3>>* curr_vertecies)
 {
-	//DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight);
+	const glm::vec3 color(0, 0, 0);
+
+	for (std::vector<std::pair <glm::vec3, glm::vec3>>::iterator it = curr_vertecies->begin(); it != curr_vertecies->end(); ++it)
+	{
+		glm::vec3 curr_vertex_0(it->first.x, it->first.y, it->first.z);
+		glm::vec3 curr_vertex_1(it->second.x, it->second.y, it->second.z);
+
+		// The relevant data is vertex.x and vertex.y
+		DrawLineBresenhamAlgorithm(curr_vertex_0[0] * viewportWidth, curr_vertex_0[1] * viewportHeight, curr_vertex_1[0] * viewportWidth, curr_vertex_1[1] * viewportHeight, color);
+
+	}
 
 	return;
 }
 
 
+std::vector<std::pair <glm::vec3, glm::vec3>> TransformVerteciesBoundBox(std::vector<std::pair <glm::vec3, glm::vec3>>* vertex_bound_box, glm::mat4x4* tarns_mat)
+{
+	std::vector<std::pair <glm::vec3, glm::vec3>> transed_vetricies;
+	glm::mat4 _curr_tran(*tarns_mat);
+
+	for (std::vector<std::pair <glm::vec3, glm::vec3>>::iterator it = vertex_bound_box->begin(); it != vertex_bound_box->end(); ++it)
+	{
+		glm::vec4 tmp1(1.0);
+		tmp1[0] = it->first.x;
+		tmp1[1] = it->first.y;
+		tmp1[2] = it->first.z;
+		glm::vec4 res_vertex1 = *tarns_mat * tmp1;
+		glm::vec3 vertex_1 = glm::vec3(res_vertex1[0], res_vertex1[1], res_vertex1[2]);
+
+		glm::vec4 tmp2(1.0);
+		tmp2[0] = it->second.x;
+		tmp2[1] = it->second.y;
+		tmp2[2] = it->second.z;
+		glm::vec4 res_vertex2 = *tarns_mat * tmp2;
+		glm::vec3 vertex_2 = glm::vec3(res_vertex2[0], res_vertex2[1], res_vertex2[2]);
+
+		transed_vetricies.push_back(std::pair <glm::vec3, glm::vec3>(vertex_1, vertex_2));
+	}
+
+	return transed_vetricies;
+}
 
 // Main function
 void Renderer::Render(Scene& scene, ImGuiIO& io)
@@ -314,6 +352,7 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		}
 
 
+		// Draw all faces
 		int num_faces = scene.GetActiveModelNumFaces();
 		for (int y = 0; y < num_faces; y++)
 		{
@@ -333,9 +372,10 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		// Draw bound box
 		if (scene.GetBoundBox())
 		{
-			//std::vector<glm::vec3, glm::vec3> lines_bound_box = scene.GetActiveModelBoundBoxVerticies();
-			//std::vector<glm::vec3, glm::vec3> lines_bound_box_transed;
-			//DrawBoundBox(lines_bound_box_transed);
+			std::vector<std::pair <glm::vec3, glm::vec3>> lines_bound_box = scene.GetActiveModelBoundBoxVerticies();
+			std::vector<std::pair <glm::vec3, glm::vec3>> lines_bound_box_transed = TransformVerteciesBoundBox(&lines_bound_box, &tarns_mat);
+
+			DrawBoundBox(&lines_bound_box_transed);
 		}
 
 

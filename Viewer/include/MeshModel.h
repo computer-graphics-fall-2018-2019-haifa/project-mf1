@@ -60,7 +60,10 @@ public:
 	const glm::vec3& GetVertex(int index) const;
 	const int GetVerticesCount() const;
 	const std::vector<glm::vec3> GetVertices() const;
-	const std::vector<glm::vec3> GetBoundBoxVerticies() const;
+	std::vector<std::pair <glm::vec3, glm::vec3>> GetBoundBoxVerticies();
+
+
+
 
 	const Face GetFace(int index) const;
 	const int GetFacesCount() const;
