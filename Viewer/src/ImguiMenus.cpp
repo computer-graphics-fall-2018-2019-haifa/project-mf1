@@ -38,7 +38,7 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 		static int counter = 0;
 
 		ImGui::Begin("click me");                          // Create a window called "Hello, world!" and append into it.
-
+		
 
 
 
@@ -95,9 +95,9 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 			{
-				ImGui::SliderFloat("scaleX", &f_scale_x, 0.001f, 100.0f);
-				ImGui::SliderFloat("scaleY", &f_scale_y, 0.001f, 100.0f);
-				ImGui::SliderFloat("scaleZ", &f_scale_z, 0.001f, 100.0f);
+				ImGui::SliderFloat("scaleX", &f_scale_x, 0.00001f, 100.0f, "%.5f");
+				ImGui::SliderFloat("scaleY", &f_scale_y, 0.00001f, 100.0f, "%.5f");
+				ImGui::SliderFloat("scaleZ", &f_scale_z, 0.00001f, 100.0f, "%.5f");
 			}
 
 			ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);

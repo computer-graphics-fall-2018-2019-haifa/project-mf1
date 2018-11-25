@@ -22,9 +22,19 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	RotationMatY = glm::mat4(1.0);
 	RotationMatZ = glm::mat4(1.0);
 
-	f_scale_x = 5.0f;
-	f_scale_y = 5.0f;
-	f_scale_z = 5.0f;
+	if (modelName._Equal("cow.obj"))
+	{
+		f_scale_x = 0.09f;
+		f_scale_y = 0.09f;
+		f_scale_z = 0.09f;
+	}
+	else
+	{
+		f_scale_x = 5.0f;
+		f_scale_y = 5.0f;
+		f_scale_z = 5.0f;
+	}
+	
 	f_trans_x = 0.5f;
 	f_trans_y = 0.5f;
 	f_trans_z = 0.5f;
