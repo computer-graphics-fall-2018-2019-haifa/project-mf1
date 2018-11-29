@@ -171,7 +171,7 @@ void Renderer::DrawLineBresenhamAlgorithm(float _x0, float _y0, float _x1, float
 }
 
 
-void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices, bool is_2d_debug)
+void Renderer::DrawFace(Face curr_face, std::vector<glm::vec4> curr_vertices)
 {
 	const glm::vec3 color(1,0,1);
 
@@ -238,12 +238,12 @@ glm::mat4x4 getScenceTransMat(Scene& scene)
 // Apply camera projection
 void SetCameraProjection(Scene& scene)
 {
-	float left= (-600.0f);
-	float right = (600.0);
-	float bottom = (-300.0);
-	float top = (300.0);
-	float near_ = 1.0;
-	float far_ = 150.0;
+	float left= (-500.0f);
+	float right = (500.0f);
+	float bottom = (-200.0f);
+	float top = (200.0f);
+	float near_ = 10.0f;
+	float far_ = 150.0f;
 	scene.SetCameraProjection(left,
 		right,
 		bottom,
@@ -256,9 +256,9 @@ void SetCameraProjection(Scene& scene)
 // Apply gui input on camera view
 void SetCameraViewFromGui(Scene& scene)
 {
-	glm::vec3 eye(1.0);
-	glm::vec3 at(1.0);
-	glm::vec3 up(1.0);
+	glm::vec3 eye(0,0,10.0f);
+	glm::vec3 at(0,0,(-1.0f));
+	glm::vec3 up(0,1,0);
 
 	scene.SetCameraView(eye,at,up);
 }
@@ -313,8 +313,6 @@ std::vector<std::pair <glm::vec3, glm::vec3>> TransformVerteciesBoundBox(std::ve
 // Main function
 void Renderer::Render(Scene& scene, ImGuiIO& io)
 {
-	bool is_2d_debug = true; // For debug
-
 	// Draw all models
 	int num_models = scene.GetModelCount();
 
@@ -336,20 +334,17 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 		// Handle view camera
 		SetCameraViewFromGui(scene);
-		glm::mat4x4 viewCamera(1.0f);
-		if (!is_2d_debug)
-		{
-			glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
-		}
+		//glm::mat4x4 viewCamera(1.0f);
+		glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
+		
+
 
 
 		// Handle projection
 		SetCameraProjection(scene);
-		glm::mat4x4 projection(1.0f);
-		if (!is_2d_debug)
-		{
-			glm::mat4x4 projection = scene.GetActiveCameraProjection();
-		}
+		//glm::mat4x4 projection(1.0f);
+		glm::mat4x4 projection = scene.GetActiveCameraProjection();
+		
 
 
 		// Draw all faces
@@ -365,7 +360,7 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 			std::vector<glm::vec4> transed_vertices = TransformVertecies(curr_vetices, tarns_mat);
 
 			// Draw the faces lines
-			DrawFace(curr_face, transed_vertices, is_2d_debug);
+			DrawFace(curr_face, transed_vertices);
 		}
 
 

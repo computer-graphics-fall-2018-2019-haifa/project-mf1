@@ -40,7 +40,7 @@ public:
 	void DrawLineBresenhamAlgorithm(float p1, float q1, float p2, float q2, const glm::vec3& color);
 	void plotLineHigh(int x0, int y0, int x1, int y1, const glm::vec3& color);
 	void plotLineLow(int x0, int y0, int x1, int y1, const glm::vec3& color);
-	void DrawFace(Face curr_face,  std::vector<glm::vec4> curr_vertices, bool is_2d_debug);
+	void DrawFace(Face curr_face,  std::vector<glm::vec4> curr_vertices);
 	std::vector<glm::vec4> TransformVertecies(std::vector<glm::vec3> curr_vertices, glm::mat4x4 curr_tran);
 	void DrawBoundBox(std::vector<std::pair <glm::vec3, glm::vec3>>* curr_vertecies);
 
