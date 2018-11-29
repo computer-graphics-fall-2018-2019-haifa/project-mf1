@@ -343,8 +343,8 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 
 		// Handle projection
 		SetCameraProjection(scene);
-		glm::mat4x4 projection(1.0f);
-		//glm::mat4x4 projection = scene.GetActiveCameraProjection();
+		//glm::mat4x4 projection(1.0f);
+		glm::mat4x4 projection = scene.GetActiveCameraProjection();
 		
 
 

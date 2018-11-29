@@ -30,9 +30,9 @@ MeshModel::MeshModel(const std::vector<Face>& faces, const std::vector<glm::vec3
 	}
 	else
 	{
-		f_scale_x = 5.0f;
-		f_scale_y = 5.0f;
-		f_scale_z = 5.0f;
+		f_scale_x = 1000.0f;
+		f_scale_y = 1000.0f;
+		f_scale_z = 1000.0f;
 	}
 	
 	f_trans_x = 0.5f;

@@ -95,9 +95,9 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 
 
 			{
-				ImGui::SliderFloat("scaleX", &f_scale_x, 0.00001f, 100.0f, "%.5f");
-				ImGui::SliderFloat("scaleY", &f_scale_y, 0.00001f, 100.0f, "%.5f");
-				ImGui::SliderFloat("scaleZ", &f_scale_z, 0.00001f, 100.0f, "%.5f");
+				ImGui::SliderFloat("scaleX", &f_scale_x, 0.00001f, 10000.0f, "%.5f");
+				ImGui::SliderFloat("scaleY", &f_scale_y, 0.00001f, 10000.0f, "%.5f");
+				ImGui::SliderFloat("scaleZ", &f_scale_z, 0.00001f, 10000.0f, "%.5f");
 			}
 
 			ImGui::SliderFloat("transX", &f_trans_x, -1.0f, 1.0f);
