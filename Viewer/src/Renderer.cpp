@@ -240,10 +240,10 @@ void SetCameraProjection(Scene& scene)
 {
 	float left= (-500.0f);
 	float right = (500.0f);
-	float bottom = (-200.0f);
-	float top = (200.0f);
-	float near_ = 10.0f;
-	float far_ = 150.0f;
+	float bottom = (-500.0f);
+	float top = (500.0f);
+	float near_ = 1.0f;
+	float far_ = 500.0f;
 	scene.SetCameraProjection(left,
 		right,
 		bottom,
@@ -256,10 +256,11 @@ void SetCameraProjection(Scene& scene)
 // Apply gui input on camera view
 void SetCameraViewFromGui(Scene& scene)
 {
-	glm::vec3 eye(0,0,10.0f);
-	glm::vec3 at(0,0,(-1.0f));
-	glm::vec3 up(0,1,0);
+	glm::vec3 eye(0,0,1.0f);
+	glm::vec3 at(0,-1,(0.0f));
+	glm::vec3 up(0,0,1);
 
+	
 	scene.SetCameraView(eye,at,up);
 }
 
@@ -335,15 +336,15 @@ void Renderer::Render(Scene& scene, ImGuiIO& io)
 		// Handle view camera
 		SetCameraViewFromGui(scene);
 		//glm::mat4x4 viewCamera(1.0f);
-		glm::mat4x4 viewCamera = glm::inverse(scene.GetActiveCameraTransformation());
+		glm::mat4x4 viewCamera = scene.GetActiveCameraTransformation();
 		
 
 
 
 		// Handle projection
 		SetCameraProjection(scene);
-		//glm::mat4x4 projection(1.0f);
-		glm::mat4x4 projection = scene.GetActiveCameraProjection();
+		glm::mat4x4 projection(1.0f);
+		//glm::mat4x4 projection = scene.GetActiveCameraProjection();
 		
 
 

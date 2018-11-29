@@ -105,15 +105,6 @@ public:
 	glm::mat4x4 GetActiveCameraProjection();
 
 
-	float cam_eye_x;
-	float cam_eye_y;
-	float cam_eye_z;
-	float cam_at_x;
-	float cam_at_y;
-	float cam_at_z;
-	float cam_up_x;
-	float cam_up_y;
-	float cam_up_z;
 
 	bool is_orth;
 
