@@ -28,13 +28,31 @@ Camera::~Camera()
 }
 
 
+void Camera::SetActiveCameraProjectionParams(float _f_fovy,
+	float _apect_ratio,
+	float _f_near,
+	float _f_far) 
+{
+	f_fovy = _f_fovy;
+	apect_ratio = _apect_ratio;
+	f_near = _f_near;
+	f_far = _f_far;
+}
+
+
 void Camera::SetActiveCameraViewParams(float _f_camera_trans_x,
 	float _f_camera_trans_y,
-	float _f_camera_trans_z)
+	float _f_camera_trans_z,
+	float _f_camera_rotate_x,
+	float _f_camera_rotate_y,
+	float _f_camera_rotate_z)
 {
 	f_camera_trans_x = _f_camera_trans_x;
 	f_camera_trans_y = _f_camera_trans_y;
 	f_camera_trans_z = _f_camera_trans_z;
+	f_camera_rotate_x = _f_camera_rotate_x;
+	f_camera_rotate_y = _f_camera_rotate_y;
+	f_camera_rotate_z = _f_camera_rotate_z;
 }
 
 

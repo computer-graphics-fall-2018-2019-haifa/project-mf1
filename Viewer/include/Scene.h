@@ -79,7 +79,17 @@ public:
 
 	void SetActiveCameraViewParams(float f_camera_trans_x,
 		float f_camera_trans_y,
-		float f_camera_trans_z);
+		float f_camera_trans_z,
+		float f_camera_rotate_x,
+		float f_camera_rotate_y,
+		float f_camera_rotate_z);
+
+
+	void SetActiveCameraProjectionParams(float f_fovy,
+		float apect_ratio,
+		float f_near,
+		float f_far);
+
 
 
 	void SetCameraView(const glm::vec3& eye, const glm::vec3& at, const glm::vec3& up);

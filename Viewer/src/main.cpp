@@ -74,9 +74,9 @@ int main(int argc, char **argv)
 
 
 	// add camera of inital setup
-	const glm::vec3 eye(0.0,0.0,50.0);
-	const glm::vec3 at(1000.0, 1000.0, 0.0);
-	const glm::vec3 up(0.0,-1.0,0.0);
+	const glm::vec3 eye(1.0);
+	const glm::vec3 at(1.0);
+	const glm::vec3 up(1.0);
 	Camera init_camera(eye, at, up);
 	scene.AddCamera(init_camera);
 

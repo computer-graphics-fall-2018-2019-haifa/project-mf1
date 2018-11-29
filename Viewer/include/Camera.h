@@ -15,6 +15,16 @@ private:
 	float f_camera_trans_y;
 	float f_camera_trans_z;
 
+	float f_camera_rotate_x;
+	float f_camera_rotate_y;
+	float f_camera_rotate_z;
+
+
+	float f_fovy;
+	float apect_ratio;
+	float f_near;
+	float f_far;
+
 	// Transform matricies
 	glm::mat4x4 translationMat;
 	glm::mat4x4 scaleMat;
@@ -29,7 +39,15 @@ public:
 
 	void SetActiveCameraViewParams(float f_camera_trans_x,
 		float f_camera_trans_y,
-		float f_camera_trans_z);
+		float f_camera_trans_z,
+		float f_camera_rotate_x,
+		float f_camera_rotate_y,
+		float f_camera_rotate_z);
+
+	void SetActiveCameraProjectionParams(float _f_fovy,
+		float _apect_ratio,
+		float _f_near,
+		float _f_far);
 
 	void SetTranslationMat();
 

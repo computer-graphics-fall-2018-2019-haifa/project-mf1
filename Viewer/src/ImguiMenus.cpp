@@ -128,16 +128,26 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 			}
 
 			static float f_camera_trans_x = 0.0f;
-			ImGui::SliderFloat("eye x", &f_camera_trans_x, -100.0f, 100.0f);
+			ImGui::SliderFloat("camera trans x", &f_camera_trans_x, -100.0f, 100.0f);
 			static float f_camera_trans_y = 0.0f;
-			ImGui::SliderFloat("eye y", &f_camera_trans_y, -100.0f, 100.0f);
+			ImGui::SliderFloat("camera trans  y", &f_camera_trans_y, -100.0f, 100.0f);
 			static float f_camera_trans_z = 0.0f;
-			ImGui::SliderFloat("eye z", &f_camera_trans_z, -100.0f, 100.0f);
+			ImGui::SliderFloat("camera trans  z", &f_camera_trans_z, -100.0f, 100.0f);
 
+			static float f_camera_rotate_x = 0.0f;
+			ImGui::SliderFloat("camera rotate x", &f_camera_rotate_x, -100.0f, 100.0f);
+			static float f_camera_rotate_y = 0.0f;
+			ImGui::SliderFloat("camera rotate  y", &f_camera_rotate_y, -100.0f, 100.0f);
+			static float f_camera_rotate_z = 0.0f;
+			ImGui::SliderFloat("camera rotate  z", &f_camera_rotate_z, -100.0f, 100.0f);
 
 			scene.SetActiveCameraViewParams(f_camera_trans_x, 
 				f_camera_trans_y, 
-				f_camera_trans_z);
+				f_camera_trans_z,
+				f_camera_rotate_x,
+				f_camera_rotate_y,
+				f_camera_rotate_z
+				);
 
 
 
@@ -151,6 +161,12 @@ void DrawImguiMenus(ImGuiIO& io, Scene& scene)
 			ImGui::SliderFloat("near", &f_near, -100.0f, 100.0f);
 			static float f_far = 0.0f;
 			ImGui::SliderFloat("far", &f_far, -100.0f, 100.0f);
+
+			scene.SetActiveCameraProjectionParams(f_fovy,
+				apect_ratio,
+				f_near,
+				f_far
+			);
 
 
 

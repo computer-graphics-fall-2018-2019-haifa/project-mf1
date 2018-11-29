@@ -86,14 +86,34 @@ const int Scene::GetActiveCameraIndex() const
 }
 
 
+void Scene::SetActiveCameraProjectionParams(float f_fovy,
+	float apect_ratio,
+	float f_near,
+	float f_far) 
+{
+
+	cameras[activeCameraIndex].SetActiveCameraProjectionParams(f_fovy,
+		apect_ratio,
+		f_near,
+		f_far);
+}
+
+
 
 void Scene::SetActiveCameraViewParams(float f_camera_trans_x,
 	float f_camera_trans_y,
-	float f_camera_trans_z)
+	float f_camera_trans_z,
+	float f_camera_rotate_x,
+	float f_camera_rotate_y,
+	float f_camera_rotate_z
+	)
 {
 	cameras[activeCameraIndex].SetActiveCameraViewParams(f_camera_trans_x,
 		f_camera_trans_y,
-		f_camera_trans_z);
+		f_camera_trans_z,
+		f_camera_rotate_x,
+		f_camera_rotate_y,
+		f_camera_rotate_z);
 }
 
 

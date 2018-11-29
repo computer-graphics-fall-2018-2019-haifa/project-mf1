@@ -256,9 +256,9 @@ void SetCameraProjection(Scene& scene)
 // Apply gui input on camera view
 void SetCameraViewFromGui(Scene& scene)
 {
-	glm::vec3 eye(scene.cam_eye_x, scene.cam_eye_y, scene.cam_eye_z);
-	glm::vec3 at(scene.cam_at_x, scene.cam_at_y, scene.cam_at_z);
-	glm::vec3 up(scene.cam_up_x, scene.cam_up_y, scene.cam_up_z);
+	glm::vec3 eye(1.0);
+	glm::vec3 at(1.0);
+	glm::vec3 up(1.0);
 
 	scene.SetCameraView(eye,at,up);
 }
